@@ -371,6 +371,105 @@ textarea.notes{width:100%;border:1.5px solid var(--line);border-radius:4px;paddi
 
 .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--iron);color:#fff;padding:13px 22px;border-radius:6px;font-size:13.5px;display:flex;align-items:center;gap:10px;z-index:600;box-shadow:0 10px 30px rgba(0,0,0,.3);}
 .toast svg{width:16px;height:16px;color:#7CC78A;}
+
+/* ===== mega menu ===== */
+.mega-wrap{position:relative;}
+.mega-panel{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:var(--white);border:1px solid var(--line);border-radius:8px;box-shadow:0 20px 50px rgba(20,20,15,.16);padding:22px;display:grid;grid-template-columns:repeat(3,200px);gap:4px 26px;z-index:300;}
+.mega-col h6{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust-deep);margin-bottom:8px;}
+.mega-col a{display:block;padding:6px 0;font-size:13.5px;color:var(--ink);border-radius:4px;}
+.mega-col a:hover{color:var(--forest);padding-left:5px;}
+@media (max-width:980px){.mega-panel{display:none;}}
+
+/* ===== org hierarchy chart ===== */
+.org-chart{display:flex;flex-direction:column;align-items:center;gap:0;padding:20px 0 6px;}
+.org-row{display:flex;justify-content:center;gap:22px;position:relative;flex-wrap:wrap;}
+.org-node{background:var(--white);border:1.5px solid var(--line);border-radius:8px;padding:14px 20px;text-align:center;min-width:180px;box-shadow:0 4px 14px rgba(20,20,15,.06);}
+.org-node.top{background:var(--forest);border-color:var(--forest);color:#fff;}
+.org-node.top .role{color:#CFE0D5;}
+.org-node .role{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--rust-deep);}
+.org-node .nm{font-weight:700;font-size:14px;margin-top:4px;}
+.org-connector{width:2px;height:28px;background:var(--line);margin:0 auto;}
+.org-branch{position:relative;padding-top:28px;}
+.org-branch::before{content:"";position:absolute;top:0;left:50%;width:1px;height:28px;background:var(--line);}
+
+/* ===== stepper ===== */
+.stepper{display:flex;align-items:flex-start;gap:0;margin-bottom:36px;overflow-x:auto;}
+.step{display:flex;flex-direction:column;align-items:center;flex:1;min-width:110px;position:relative;}
+.step .circ{width:34px;height:34px;border-radius:50%;background:var(--paper-deep);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--ink-soft);z-index:2;}
+.step.done .circ{background:var(--forest);border-color:var(--forest);color:#fff;}
+.step.active .circ{background:var(--rust);border-color:var(--rust);color:#fff;box-shadow:0 0 0 5px var(--rust-mist);}
+.step .lbl{font-size:11.5px;text-align:center;margin-top:9px;color:var(--ink-soft);max-width:104px;}
+.step.active .lbl,.step.done .lbl{color:var(--ink);font-weight:600;}
+.step::after{content:"";position:absolute;top:17px;left:calc(50% + 20px);width:calc(100% - 20px);height:2px;background:var(--line);z-index:1;}
+.step:last-child::after{display:none;}
+.step.done::after{background:var(--forest);}
+
+/* ===== phone mockup (android app) ===== */
+.phone-row{display:flex;gap:26px;overflow-x:auto;padding:10px 4px 26px;}
+.phone{width:230px;flex-shrink:0;background:var(--iron);border-radius:26px;padding:10px;box-shadow:0 16px 34px rgba(20,20,15,.18);}
+.phone .screen{background:var(--paper);border-radius:18px;overflow:hidden;height:440px;position:relative;display:flex;flex-direction:column;}
+.phone .notch{height:18px;display:flex;align-items:center;justify-content:center;}
+.phone .notch::before{content:"";width:52px;height:5px;background:#000;border-radius:4px;}
+.phone .app-bar{background:var(--forest);color:#fff;padding:12px 14px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.phone .app-body{flex:1;padding:12px;overflow:hidden;font-size:10.5px;}
+.phone .cap{text-align:center;font-size:12px;font-weight:700;margin-top:12px;color:var(--ink);}
+.phone .app-card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px;margin-bottom:8px;}
+.phone .app-card .t{font-weight:700;font-size:10.5px;}
+.phone .app-card .s{font-size:9.5px;color:var(--ink-soft);margin-top:2px;}
+.phone .navbar{display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid var(--line);background:#fff;}
+.phone .navbar div{width:16px;height:16px;border-radius:4px;background:var(--paper-deep);}
+.phone .navbar div.on{background:var(--rust);}
+
+/* ===== permission matrix ===== */
+.matrix td, .matrix th{text-align:center;}
+.matrix td:first-child, .matrix th:first-child{text-align:left;}
+.dot-y{width:9px;height:9px;border-radius:50%;background:var(--forest);display:inline-block;}
+.dot-n{width:9px;height:9px;border-radius:50%;background:var(--paper-deep);border:1px solid var(--line);display:inline-block;}
+
+/* ===== timeline ===== */
+.tl{position:relative;padding-left:30px;}
+.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line);}
+.tl-item{position:relative;padding-bottom:26px;}
+.tl-item:last-child{padding-bottom:0;}
+.tl-item::before{content:"";position:absolute;left:-30px;top:3px;width:12px;height:12px;border-radius:50%;background:var(--rust);border:3px solid var(--rust-mist);}
+.tl-item.done::before{background:var(--forest);border-color:var(--forest-mist);}
+.tl-item h5{font-size:14.5px;}
+.tl-item p{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
+
+/* ===== directory / industry / activity cards ===== */
+.dir-card{display:flex;gap:14px;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--white);align-items:center;}
+.dir-photo{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--forest),var(--teal));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;}
+.dir-card h5{font-size:14px;}
+.dir-card .desig{font-size:12px;color:var(--rust-deep);font-family:var(--font-mono);}
+.dir-card .meta{font-size:12px;color:var(--ink-soft);margin-top:4px;}
+
+.industry-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media (max-width:900px){.industry-grid{grid-template-columns:1fr 1fr;}}
+.industry-card{padding:20px;text-align:center;}
+.industry-card .ic{width:44px;height:44px;border-radius:10px;background:var(--forest-mist);color:var(--forest);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.industry-card .ic svg{width:22px;height:22px;}
+
+.video-card{border-radius:6px;overflow:hidden;background:var(--white);border:1px solid var(--line);}
+.video-thumb{aspect-ratio:16/9;position:relative;display:flex;align-items:center;justify-content:center;}
+.video-thumb .play{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:var(--rust);}
+.video-thumb .play svg{width:20px;height:20px;margin-left:2px;}
+.video-card .cap{padding:12px 14px;}
+.video-card .cap h5{font-size:13px;}
+.video-card .cap span{font-size:11px;color:var(--ink-soft);font-family:var(--font-mono);}
+
+.trackbar{display:flex;gap:0;margin:24px 0;}
+.trackbar .seg{flex:1;text-align:center;padding:12px 6px;font-size:11.5px;font-weight:600;color:var(--ink-soft);background:var(--paper-deep);border-right:2px solid var(--paper);}
+.trackbar .seg:last-child{border-right:0;}
+.trackbar .seg.on{background:var(--forest);color:#fff;}
+
+.stat-bar-row{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;}
+.stat-bar{height:8px;background:var(--paper-deep);border-radius:6px;overflow:hidden;margin-bottom:16px;}
+.stat-bar>div{height:100%;background:var(--teal);}
+
+body.contrast{ --paper:#000; --paper-deep:#111; --ink:#fff; --ink-soft:#ddd; --line:#444; --white:#0c0c0c; }
+body.contrast .card, body.contrast .jail-card, body.contrast .video-card{background:#0c0c0c;}
+body.dark{ --paper:#15170F; --paper-deep:#1D2016; --ink:#EDEAE0; --ink-soft:#B5B2A4; --line:#33362A; --white:#1A1D14; }
+body.dark .jail-card .swatch{filter:brightness(.85);}
 </style>
 </head>
 <body>
@@ -494,6 +593,96 @@ const USERS = [
  {name:"Jail Editor — Gumla", role:"Jail Editor", jail:"Gumla Sub Jail", status:"Pending Activation", login:"Never"}
 ];
 
+const OFFICIALS=[
+ {name:"Shri A. K. Pandey, IPS", desig:"Director General (Prisons)", jail:"Headquarters", phone:"0651-2401001", email:"dg.prisons@jharkhand.gov.in", init:"AP"},
+ {name:"Shri R. S. Bhagat, IPS", desig:"Inspector General of Prisons", jail:"Headquarters", phone:"0651-2401044", email:"igprisons@jharkhand.gov.in", init:"RB"},
+ {name:"Smt. M. Lakra", desig:"Deputy Inspector General (Admin)", jail:"Headquarters", phone:"0651-2401052", email:"dig.admin@prisons.jharkhand.gov.in", init:"ML"},
+ {name:"Shri T. N. Sahay", desig:"Deputy Inspector General (Reforms)", jail:"Headquarters", phone:"0651-2401058", email:"dig.reforms@prisons.jharkhand.gov.in", init:"TS"},
+ {name:"Shri R. K. Mahto", desig:"Superintendent", jail:"Birsa Munda Central Jail", phone:"0651-2233012", email:"cj.ranchi@prisons.jharkhand.gov.in", init:"RM"},
+ {name:"Smt. P. Devi", desig:"Superintendent", jail:"Hazaribagh Central Jail", phone:"06546-222145", email:"cj.hazaribagh@prisons.jharkhand.gov.in", init:"PD"},
+ {name:"Shri S. N. Soren", desig:"Superintendent", jail:"Dumka Central Jail", phone:"06434-222331", email:"cj.dumka@prisons.jharkhand.gov.in", init:"SS"},
+ {name:"Shri M. Toppo", desig:"Superintendent", jail:"Ghaghidih Central Jail", phone:"0657-2431098", email:"cj.jamshedpur@prisons.jharkhand.gov.in", init:"MT"},
+ {name:"Shri V. P. Singh", desig:"Superintendent", jail:"Dhanbad District Jail", phone:"0326-2301122", email:"dj.dhanbad@prisons.jharkhand.gov.in", init:"VS"},
+ {name:"Smt. S. Kerketta", desig:"Welfare Officer", jail:"Birsa Munda Central Jail", phone:"0651-2233019", email:"welfare.ranchi@prisons.jharkhand.gov.in", init:"SK"},
+ {name:"Dr. P. Nag", desig:"Medical Officer", jail:"Birsa Munda Central Jail", phone:"0651-2233021", email:"medical.ranchi@prisons.jharkhand.gov.in", init:"PN"},
+ {name:"Shri K. C. Hansda", desig:"Superintendent", jail:"Chaibasa Sub Jail", phone:"06582-256011", email:"sj.chaibasa@prisons.jharkhand.gov.in", init:"KH"}
+];
+
+const INDUSTRIES=[
+ {ic:"hammer", name:"Furniture & Carpentry", desc:"Wooden furniture for government offices, made across 6 facility workshops.", rev:"₹42.6L", jails:"7 jails"},
+ {ic:"briefcase", name:"Tailoring & Garments", desc:"Uniform stitching for police & prison staff, plus retail bags.", rev:"₹31.2L", jails:"9 jails"},
+ {ic:"grid", name:"Handloom & Weaving", desc:"Handwoven textiles sold through Jharkhand Handicrafts emporiums.", rev:"₹18.9L", jails:"5 jails"},
+ {ic:"heart", name:"Bakery & Food Processing", desc:"Bread, snacks and pickles supplied to jail canteens & local markets.", rev:"₹12.4L", jails:"4 jails"},
+ {ic:"book", name:"Craft & Handicrafts", desc:"Bamboo, terracotta and tribal-art craft products by inmate artisans.", rev:"₹9.8L", jails:"6 jails"},
+ {ic:"building", name:"Bakery Retail Outlets", desc:"Two retail counters at Ranchi and Hazaribagh sell inmate-made goods to the public.", rev:"₹6.1L", jails:"2 jails"},
+ {ic:"users", name:"Agriculture & Dairy", desc:"Kitchen-garden and dairy units at Open Jail, Hazaribagh supporting self-sufficiency.", rev:"₹5.4L", jails:"1 jail"},
+ {ic:"award", name:"Printing & Binding", desc:"Government forms & registers printed and bound in-house.", rev:"₹4.0L", jails:"2 jails"}
+];
+
+const ACTIVITIES=[
+ {ic:"heart", name:"Yoga & Meditation", desc:"Daily morning sessions for inmates and staff wellbeing, led by certified instructors."},
+ {ic:"graduation", name:"Education Programme", desc:"Open-schooling (NIOS) enrolment for undertrials & convicts, from Class 8 to graduation."},
+ {ic:"book", name:"Prison Library", desc:"Reading rooms stocked with academic, religious and recreational literature in 3 languages."},
+ {ic:"briefcase", name:"Vocational Training", desc:"Skill-development batches in tailoring, carpentry, electrical wiring and computer basics."},
+ {ic:"users", name:"Counselling Services", desc:"Individual & group counselling by empanelled psychologists for rehabilitation support."},
+ {ic:"heart", name:"Health Camps", desc:"Monthly medical camps with the State Health Department; TB, HIV & dental screening."},
+ {ic:"flag", name:"NGO Partner Programmes", desc:"Collaborations with 8 NGOs on legal literacy, de-addiction and family reintegration."},
+ {ic:"award", name:"Success Stories", desc:"Documented cases of released inmates who completed vocational certification and gained employment."}
+];
+
+const TRAINING_COURSES=[
+ {title:"Basic Warder Recruitment Training", dur:"6 months", batch:"Batch 14 · 62 trainees", status:"Ongoing"},
+ {title:"Prison Management & Human Rights", dur:"3 weeks", batch:"Batch 7 · 34 officers", status:"Upcoming — 14 Jul 2026"},
+ {title:"Fire Safety & Emergency Response", dur:"5 days", batch:"Batch 22 · 48 staff", status:"Completed"},
+ {title:"Cyber Hygiene for CMS Operators", dur:"2 days", batch:"Batch 3 · 26 jail editors", status:"Completed"},
+ {title:"De-addiction Counselling Certification", dur:"4 weeks", batch:"Batch 5 · 18 welfare officers", status:"Upcoming — 02 Aug 2026"}
+];
+
+const MODERNIZATION=[
+ {t:"Perimeter CCTV & Access Control Upgrade", jail:"6 facilities", budget:"₹4.8 Cr", pct:72, status:"In Progress", done:false},
+ {t:"Solar Power Installation", jail:"Birsa Munda Central Jail", budget:"₹1.2 Cr", pct:100, status:"Completed — Mar 2026", done:true},
+ {t:"New Barrack Block (200-bed)", jail:"Hazaribagh Central Jail", budget:"₹6.5 Cr", pct:45, status:"In Progress", done:false},
+ {t:"Digital Visitor Kiosk Rollout", jail:"13 facilities", budget:"₹0.9 Cr", pct:100, status:"Completed — Jan 2026", done:true},
+ {t:"Vocational Training Workshop Expansion", jail:"Dumka Central Jail", budget:"₹0.6 Cr", pct:20, status:"In Progress", done:false},
+ {t:"Water Treatment Plant", jail:"Dhanbad District Jail", budget:"₹0.75 Cr", pct:0, status:"Planned — Q3 2026", done:false}
+];
+
+const ARCHIVE=[
+ {year:"2026", cat:"Circular", dept:"Admin", title:"Revised mulakat timing across all facilities"},
+ {year:"2025", cat:"Report", dept:"Reforms", title:"Annual Prison Reform & Rehabilitation Report 2025"},
+ {year:"2025", cat:"Tender", dept:"Procurement", title:"CCTV surveillance upgradation — 6 facilities"},
+ {year:"2024", cat:"Notification", dept:"Legal", title:"Jharkhand Prison Rules amendment notification"},
+ {year:"2024", cat:"Report", dept:"Industry", title:"Prison Industries Revenue & Output Report 2024"},
+ {year:"2023", cat:"Circular", dept:"Reforms", title:"Open Jail eligibility criteria — original notification"},
+ {year:"2022", cat:"Notification", dept:"Legal", title:"Jharkhand Prison Rules, 2022 — consolidated release"},
+ {year:"2021", cat:"Report", dept:"Admin", title:"COVID-19 Response & Inmate Health Report 2021"}
+];
+
+const VIDEOS=[
+ {c1:"#1B4332",c2:"#0F2A20", t:"IG Prisons — Republic Day Address 2026", d:"3:42"},
+ {c1:"#B5572B",c2:"#8F441F", t:"Inside Vocational Training — Birsa Munda Central Jail", d:"5:18"},
+ {c1:"#2F6F62",c2:"#1B4332", t:"TB-Mukt Karagar Campaign — Documentary Short", d:"4:05"},
+ {c1:"#B8841F",c2:"#8F441F", t:"Open Jail, Hazaribagh — A Model in Reform", d:"6:52"},
+ {c1:"#21241F",c2:"#2E322B", t:"Jail Training Institute — Batch 14 Passing Out Parade", d:"2:30"},
+ {c1:"#1B4332",c2:"#2F6F62", t:"Prison Industries — From Workshop to Market", d:"7:11"}
+];
+
+const ROLES_MATRIX=[
+ {role:"PHQ Super Admin", perms:[1,1,1,1,1,1,1]},
+ {role:"PHQ Content Manager", perms:[1,1,0,1,1,0,0]},
+ {role:"Jail Superintendent", perms:[0,1,0,1,0,1,0]},
+ {role:"Jail Editor", perms:[0,1,0,1,0,0,0]},
+ {role:"Data Entry Operator", perms:[0,0,0,1,0,0,0]},
+ {role:"Citizen", perms:[0,0,0,0,0,0,1]}
+];
+const ROLES_COLS=["User Mgmt","Content Publish","System Config","Content Draft","Approve/Reject","Facility Profile","Public Services"];
+
+const COMPLAINTS=[
+ {id:"CMP-2026-0091", cat:"Visitation Issue", date:"18 Jun", status:"In Progress"},
+ {id:"CMP-2026-0084", cat:"Corruption Complaint", date:"12 Jun", status:"Escalated"},
+ {id:"CMP-2026-0077", cat:"Website Issue", date:"05 Jun", status:"Resolved"}
+];
+
 /* =========================================================
    ICONS
 ========================================================= */
@@ -525,7 +714,22 @@ const ICN = {
   settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
   logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
   upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
-  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  lock:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  key:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M10.5 12.5 20 3M20 3h-4M20 3v4"/></svg>',
+  briefcase:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+  book:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  graduation:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg>',
+  hammer:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 12-8.5 8.5a1.5 1.5 0 0 1-2-2L13 10"/><path d="M17.64 15 22 10.64"/><path d="m20.91 11.7-1.25-1.25c-.6-.6-.93-1.4-.93-2.25v-.86L16.01 4.6a5.56 5.56 0 0 0-3.94-1.64H9l.92.82A6.18 6.18 0 0 1 12 8.4v1.56l2 2h2.47l2.26 1.91"/></svg>',
+  archiveBox:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="5" rx="1"/><path d="M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"/><line x1="10" y1="13" x2="14" y2="13"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>',
+  qrcode:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><line x1="14" y1="14" x2="14" y2="14.01"/><line x1="18" y1="14" x2="18" y2="14.01"/><line x1="14" y1="18" x2="14" y2="18.01"/><line x1="18" y1="18" x2="21" y2="18"/><line x1="21" y1="14" x2="21" y2="21"/></svg>',
+  chartbar:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  heart:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  smartphone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+  route:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/></svg>',
+  refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>'
 };
 function emblem(size){
   return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 48 48" fill="none">'+
@@ -556,10 +760,22 @@ let S = {
   contentTab:"All",
   fontStep:1,
   loginTab:"phq_admin",
-  jailEditorTab:"officials"
+  jailEditorTab:"officials",
+  contrast:false,
+  darkmode:false,
+  megaOpen:false,
+  visitorStep:1,
+  dirFilter:"",
+  archiveYear:"All",
+  archiveCat:"All",
+  trackId:"",
+  trackResult:null,
+  adminTab:"jails",
+  cmsModule:"news",
+  homeCmsTab:"banner"
 };
 function t(k){ return T[S.lang][k]; }
-function nav(screen, jailId){ S.screen=screen; if(jailId) S.jailId=jailId; window.scrollTo({top:0,behavior:"instant"}); render(); }
+function nav(screen, jailId){ S.screen=screen; if(jailId) S.jailId=jailId; S.megaOpen=false; window.scrollTo({top:0,behavior:"instant"}); render(); }
 function toast(msg){
   const el=document.createElement("div"); el.className="toast";
   el.innerHTML=ICN.check+"<span>"+msg+"</span>";
@@ -572,18 +788,22 @@ function toast(msg){
 ========================================================= */
 function publicHeader(){
   const items=[["home","nav_home"],["about","nav_about"],["jails","nav_jails"],["acts","nav_acts"],["tenders","nav_tenders"],["gallery","nav_gallery"],["charter","nav_charter"],["contact","nav_contact"]];
+  const moreScreens=["hierarchy","industry","activities","training","modernization","rti","downloads","archive","news","videos","directory","visitor","complaint-track","journeys","android-app"];
   return `
   <div class="gov-bar">
     <div class="wrap">
       <div class="gov-bar-left">
         <span>भारत सरकार · Government of Jharkhand</span>
-        <a href="#" onclick="return false;">RTI</a>
+        <a href="#" onclick="nav('rti');return false;">RTI</a>
         <a href="#" onclick="return false;">Sitemap</a>
       </div>
       <div class="gov-bar-right">
         <button class="util-btn" onclick="changeFontSize(-1)">A-</button>
         <button class="util-btn" onclick="changeFontSize(0)">A</button>
         <button class="util-btn" onclick="changeFontSize(1)">A+</button>
+        <button class="util-btn" onclick="toggleContrast()">${S.contrast?'Normal Contrast':'High Contrast'}</button>
+        <button class="util-btn" onclick="toggleDark()">${S.darkmode?'Light Mode':'Dark Mode'}</button>
+        <button class="util-btn" onclick="window.print()">Print</button>
         <button class="util-btn" onclick="toggleLang()">${S.lang==='en'?'हिंदी':'English'}</button>
       </div>
     </div>
@@ -599,6 +819,36 @@ function publicHeader(){
       </div>
       <nav class="main-nav">
         ${items.map(([id,key])=>`<button class="${S.screen===id?'active':''}" onclick="nav('${id}')">${t(key)}</button>`).join("")}
+        <div class="mega-wrap" onmouseenter="S.megaOpen=true;render();" onmouseleave="S.megaOpen=false;render();">
+          <button class="${moreScreens.includes(S.screen)?'active':''}" onclick="S.megaOpen=!S.megaOpen;render();">More ${ICN.chev}</button>
+          ${S.megaOpen?`
+          <div class="mega-panel">
+            <div class="mega-col">
+              <h6>Reform &amp; Industry</h6>
+              <a href="#" onclick="nav('hierarchy');return false;">Organisation Hierarchy</a>
+              <a href="#" onclick="nav('industry');return false;">Prison Industry</a>
+              <a href="#" onclick="nav('activities');return false;">Correctional Activities</a>
+              <a href="#" onclick="nav('training');return false;">Jail Training Institute</a>
+              <a href="#" onclick="nav('modernization');return false;">Jail Modernization</a>
+            </div>
+            <div class="mega-col">
+              <h6>Information</h6>
+              <a href="#" onclick="nav('rti');return false;">RTI</a>
+              <a href="#" onclick="nav('downloads');return false;">Download Center</a>
+              <a href="#" onclick="nav('archive');return false;">Archive</a>
+              <a href="#" onclick="nav('news');return false;">Latest News</a>
+              <a href="#" onclick="nav('videos');return false;">Video Gallery</a>
+              <a href="#" onclick="nav('directory');return false;">Official Directory</a>
+            </div>
+            <div class="mega-col">
+              <h6>Citizen Services</h6>
+              <a href="#" onclick="nav('visitor');return false;">Visitor Registration</a>
+              <a href="#" onclick="nav('complaint-track');return false;">Track a Complaint</a>
+              <a href="#" onclick="nav('journeys');return false;">Journey Guide</a>
+              <a href="#" onclick="nav('android-app');return false;">Mobile App Preview</a>
+            </div>
+          </div>`:''}
+        </div>
       </nav>
       <div class="header-actions">
         <button class="btn btn-primary btn-sm" onclick="nav('login')">${t('login_btn')}<span>${ICN.chev}</span></button>
@@ -624,6 +874,7 @@ function publicFooter(){
           <div class="social-row" style="margin-top:16px;">
             <a href="#" onclick="return false;" aria-label="Facebook">f</a>
             <a href="#" onclick="return false;" aria-label="Twitter">X</a>
+            <a href="#" onclick="return false;" aria-label="Instagram">IG</a>
             <a href="#" onclick="return false;" aria-label="YouTube">▶</a>
           </div>
         </div>
@@ -632,25 +883,28 @@ function publicFooter(){
           <ul>
             <li><a href="#" onclick="nav('about');return false;">About IG Prisons</a></li>
             <li><a href="#" onclick="nav('jails');return false;">All 13 Jails</a></li>
+            <li><a href="#" onclick="nav('hierarchy');return false;">Organisation Hierarchy</a></li>
             <li><a href="#" onclick="nav('charter');return false;">Citizen's Charter</a></li>
-            <li><a href="#" onclick="nav('charter');return false;">Download Forms</a></li>
+            <li><a href="#" onclick="nav('visitor');return false;">Visitor Registration</a></li>
           </ul>
         </div>
         <div>
           <h5>Resources</h5>
           <ul>
             <li><a href="#" onclick="nav('acts');return false;">Acts &amp; Rules</a></li>
+            <li><a href="#" onclick="nav('downloads');return false;">Download Center</a></li>
+            <li><a href="#" onclick="nav('archive');return false;">Archive</a></li>
             <li><a href="#" onclick="nav('tenders');return false;">Tenders</a></li>
-            <li><a href="#" onclick="nav('gallery');return false;">Photo Gallery</a></li>
-            <li><a href="https://prisons.jharkhand.gov.in" onclick="return false;">Legacy Site Archive</a></li>
+            <li><a href="#" onclick="nav('gallery');return false;">Photo &amp; Video Gallery</a></li>
           </ul>
         </div>
         <div>
           <h5>Reference Links</h5>
           <ul>
-            <li><a href="#" onclick="return false;">National Prisons Portal</a></li>
-            <li><a href="#" onclick="return false;">eTenders Jharkhand</a></li>
-            <li><a href="#" onclick="return false;">Jharkhand State Data Center</a></li>
+            <li><a href="#" onclick="nav('rti');return false;">RTI</a></li>
+            <li><a href="#" onclick="nav('directory');return false;">Official Directory</a></li>
+            <li><a href="#" onclick="nav('complaint-track');return false;">Track a Complaint</a></li>
+            <li><a href="#" onclick="nav('android-app');return false;">Mobile App Preview</a></li>
             <li><a href="#" onclick="nav('login');return false;">Department Portal Login</a></li>
           </ul>
         </div>
@@ -693,7 +947,7 @@ function screenHome(){
         <div class="hero-panel">
           <h3>${ICN.flag} Upcoming &amp; Recent</h3>
           ${NEWS.slice(0,3).map(n=>`<div class="item"><div class="d">${n.date}</div><p>${n.title}</p></div>`).join("")}
-          <button class="btn btn-line-light btn-sm" style="margin-top:16px;width:100%;justify-content:center;" onclick="nav('contact')">View all notices</button>
+          <button class="btn btn-line-light btn-sm" style="margin-top:16px;width:100%;justify-content:center;" onclick="nav('news')">View all notices</button>
         </div>
       </div>
     </div>
@@ -712,7 +966,7 @@ function screenHome(){
     <div class="wrap">
       <div class="section-head">
         <div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>NEWS &amp; INITIATIVES</div><h2>Latest from the Prison Headquarters</h2></div>
-        <button class="btn btn-line btn-sm" onclick="nav('contact')">View archive</button>
+        <button class="btn btn-line btn-sm" onclick="nav('news')">View archive</button>
       </div>
       <div class="news-grid">
         <div class="news-feature">
@@ -724,6 +978,22 @@ function screenHome(){
         <div class="news-list">
           ${NEWS.slice(1).map(n=>`<div class="row"><div class="date">${n.date}</div><div><h5>${n.title}</h5><p>${n.body.slice(0,70)}…</p></div></div>`).join("")}
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>EXPLORE THE PORTAL</div><h2>Every service, one window</h2></div></div>
+      <div class="industry-grid">
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('hierarchy')"><div class="ic">${ICN.route}</div><h5 style="font-size:13.5px;">Organisation Hierarchy</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('industry')"><div class="ic">${ICN.briefcase}</div><h5 style="font-size:13.5px;">Prison Industry</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('activities')"><div class="ic">${ICN.heart}</div><h5 style="font-size:13.5px;">Correctional Activities</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('training')"><div class="ic">${ICN.graduation}</div><h5 style="font-size:13.5px;">Training Institute</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('modernization')"><div class="ic">${ICN.hammer}</div><h5 style="font-size:13.5px;">Modernization</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('directory')"><div class="ic">${ICN.users}</div><h5 style="font-size:13.5px;">Official Directory</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('videos')"><div class="ic">${ICN.play}</div><h5 style="font-size:13.5px;">Video Gallery</h5></div>
+        <div class="card industry-card" style="cursor:pointer;" onclick="nav('visitor')"><div class="ic">${ICN.qrcode}</div><h5 style="font-size:13.5px;">Visitor Registration</h5></div>
       </div>
     </div>
   </section>
@@ -1053,6 +1323,563 @@ function screenContact(){
 function submitGrievanceForm(e){ e.preventDefault(); toast("Grievance submitted — reference #GR-2026-0142"); nav("home"); }
 
 /* =========================================================
+   ORGANISATION HIERARCHY
+========================================================= */
+function screenHierarchy(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Organisation Hierarchy</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">The chain of command governing prison administration in Jharkhand, from Director General down to facility-level staff.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="card" style="padding:40px 20px;overflow-x:auto;">
+        <div class="org-chart">
+          <div class="org-node top"><div class="role">Apex</div><div class="nm">Director General (Prisons)</div></div>
+          <div class="org-branch"><div class="org-node"><div class="role">Reporting to DG</div><div class="nm">Inspector General of Prisons</div></div></div>
+          <div class="org-branch">
+            <div class="org-row">
+              <div class="org-node"><div class="role">DIG</div><div class="nm">Deputy IG (Admin)</div></div>
+              <div class="org-node"><div class="role">DIG</div><div class="nm">Deputy IG (Reforms)</div></div>
+              <div class="org-node"><div class="role">AIG</div><div class="nm">Asst. Inspector General</div></div>
+            </div>
+          </div>
+          <div class="org-branch">
+            <div class="org-row">
+              <div class="org-node"><div class="role">4 facilities</div><div class="nm">Central Jails</div></div>
+              <div class="org-node"><div class="role">1 facility</div><div class="nm">Divisional Jail</div></div>
+              <div class="org-node"><div class="role">3 facilities</div><div class="nm">District Jails</div></div>
+              <div class="org-node"><div class="role">4 facilities</div><div class="nm">Sub Jails</div></div>
+              <div class="org-node"><div class="role">1 facility</div><div class="nm">Open Jail</div></div>
+            </div>
+          </div>
+          <div class="org-branch"><div class="org-node"><div class="role">Facility level</div><div class="nm">Superintendents · Jailors · Welfare &amp; Medical Officers</div></div></div>
+        </div>
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(2,1fr);margin-top:28px;">
+        <div class="card" style="overflow:hidden;">
+          <table class="table">
+            <thead><tr><th>Position</th><th>Officer</th></tr></thead>
+            <tbody>${HIERARCHY.map(h=>`<tr><td style="color:var(--ink-soft);">${h.role}</td><td><b>${h.name}</b></td></tr>`).join("")}</tbody>
+          </table>
+        </div>
+        <div class="card side-card">
+          <h4>About this structure</h4>
+          <p style="font-size:13.5px;color:var(--ink-soft);line-height:1.7;">Administrative authority flows from the Director General through the Inspector General to two Deputy Inspectors General — one overseeing administration, one overseeing correctional reforms. Each of the 13 facilities reports through this chain, with day-to-day charge held by facility Superintendents.</p>
+          <button class="btn btn-line btn-sm" style="margin-top:14px;" onclick="nav('directory')">View full official directory ${ICN.chev}</button>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   PRISON INDUSTRY
+========================================================= */
+function screenIndustry(){
+  const totalRev = INDUSTRIES.reduce((a,i)=>a+parseFloat(i.rev.replace(/[₹L]/g,"")),0).toFixed(1);
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Prison Industry</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Vocational production units run by inmates across Jharkhand's correctional facilities, supporting skill-building and self-sufficiency.</p>
+      <div class="meta-row">
+        <div><div class="l">ANNUAL REVENUE</div><div class="v">₹${totalRev}L</div></div>
+        <div><div class="l">ACTIVE UNITS</div><div class="v">${INDUSTRIES.length}</div></div>
+        <div><div class="l">PARTICIPATING FACILITIES</div><div class="v">11 of 13</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>PRODUCTION UNITS</div><h2>Industries at a glance</h2></div></div>
+      <div class="industry-grid">
+        ${INDUSTRIES.map(i=>`<div class="card industry-card"><div class="ic">${ICN[i.ic]}</div><h5 style="font-size:14px;margin-bottom:6px;">${i.name}</h5><p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">${i.desc}</p><div style="display:flex;justify-content:space-between;font-size:11.5px;font-family:var(--font-mono);color:var(--rust-deep);border-top:1px solid var(--line);padding-top:10px;"><span>${i.rev}/yr</span><span>${i.jails}</span></div></div>`).join("")}
+      </div>
+      <div class="hr" style="margin:40px 0;"></div>
+      <div class="section-head"><div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>PRODUCT GALLERY</div><h2>From the workshop floor</h2></div></div>
+      <div class="gallery-grid">
+        ${GALLERY.slice(0,4).map(g=>`<div class="gphoto" style="background:linear-gradient(135deg,${g.c1},${g.c2});">${ICN.image}<div class="lbl">${g.l}</div></div>`).join("")}
+      </div>
+      <div style="margin-top:24px;"><button class="btn btn-line btn-sm" onclick="nav('downloads')">${ICN.download} Industry output &amp; revenue report (PDF)</button></div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   CORRECTIONAL ACTIVITIES
+========================================================= */
+function screenActivities(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Correctional Activities</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Reform and rehabilitation programmes running across all facilities — education, wellness, counselling and reintegration support.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="industry-grid" style="grid-template-columns:repeat(4,1fr);">
+        ${ACTIVITIES.map(a=>`<div class="card industry-card" style="text-align:left;"><div class="ic" style="margin:0 0 12px;">${ICN[a.ic]}</div><h5 style="font-size:14px;margin-bottom:6px;">${a.name}</h5><p style="font-size:12px;color:var(--ink-soft);">${a.desc}</p></div>`).join("")}
+      </div>
+    </div>
+  </section>
+  <section class="section-tight" style="background:var(--forest-mist);">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>IMPACT SNAPSHOT</div><h2>Programme participation, FY 2025–26</h2></div></div>
+      <div class="grid" style="grid-template-columns:repeat(4,1fr);">
+        <div class="card kpi"><div class="num">2,140</div><div class="lab">Inmates enrolled in education</div></div>
+        <div class="card kpi"><div class="num">860</div><div class="lab">Vocational certifications issued</div></div>
+        <div class="card kpi"><div class="num">4,200+</div><div class="lab">Health-camp consultations</div></div>
+        <div class="card kpi"><div class="num">96</div><div class="lab">Documented success stories</div></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   JAIL TRAINING INSTITUTE
+========================================================= */
+function screenTraining(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Jail Training Institute</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Recruitment and in-service training for prison staff, at the state Jail Training Institute, Hotwar, Ranchi.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap detail-grid">
+      <div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>TRAINING CALENDAR</div>
+        <h3 style="margin-bottom:16px;">Current &amp; upcoming courses</h3>
+        <div class="card" style="overflow:hidden;">
+          <table class="table">
+            <thead><tr><th>Course</th><th>Duration</th><th>Batch</th><th>Status</th></tr></thead>
+            <tbody>${TRAINING_COURSES.map(c=>`<tr><td><b>${c.title}</b></td><td>${c.dur}</td><td style="color:var(--ink-soft);">${c.batch}</td><td><span class="tag ${c.status==='Completed'?'tag-green':c.status==='Ongoing'?'tag-amber':'tag-grey'}">${c.status}</span></td></tr>`).join("")}</tbody>
+          </table>
+        </div>
+        <div class="hr" style="margin:28px 0;"></div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>GALLERY</div>
+        <h3 style="margin-bottom:16px;">Training in progress</h3>
+        <div class="gallery-grid">${GALLERY.slice(4,8).map(g=>`<div class="gphoto" style="background:linear-gradient(135deg,${g.c1},${g.c2});">${ICN.image}<div class="lbl">${g.l}</div></div>`).join("")}</div>
+      </div>
+      <div>
+        <div class="card side-card" style="margin-bottom:16px;">
+          <h4>Faculty</h4>
+          <div class="line">${ICN.users}<span>Shri D. K. Ambastha — Principal, JTI</span></div>
+          <div class="line">${ICN.users}<span>Smt. R. Kachhap — Vice Principal (Training)</span></div>
+          <div class="line">${ICN.users}<span>6 empanelled subject-matter instructors</span></div>
+        </div>
+        <div class="card side-card">
+          <h4>Downloads</h4>
+          <div class="line">${ICN.doc}<span>Annual Training Calendar 2026 (PDF)</span></div>
+          <div class="line">${ICN.doc}<span>Recruit Training Syllabus (PDF)</span></div>
+          <div class="line">${ICN.doc}<span>Notice — Batch 14 Passing Out Parade</span></div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   JAIL MODERNIZATION
+========================================================= */
+function screenModernization(){
+  const completed=MODERNIZATION.filter(m=>m.done);
+  const ongoing=MODERNIZATION.filter(m=>!m.done);
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Jail Modernization</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Infrastructure upgrades underway across facilities — surveillance, housing, sanitation and vocational capacity.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>CURRENT &amp; PLANNED</div><h2>Projects in progress</h2></div></div>
+      <div class="grid" style="grid-template-columns:1fr;margin-bottom:40px;">
+        ${ongoing.map(m=>`<div class="card" style="padding:20px 22px;"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;"><div><h4 style="font-size:15.5px;">${m.t}</h4><p style="font-size:12.5px;color:var(--ink-soft);margin-top:4px;">${m.jail} · Budget ${m.budget}</p></div><span class="tag ${m.pct===0?'tag-grey':'tag-amber'}">${m.status}</span></div><div class="bw-progress" style="margin-top:14px;"><div style="width:${m.pct}%;"></div></div><div style="text-align:right;font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);margin-top:4px;">${m.pct}% complete</div></div>`).join("")}
+      </div>
+      <div class="section-head"><div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>TIMELINE</div><h2>Completed milestones</h2></div></div>
+      <div class="card" style="padding:26px 30px;">
+        <div class="tl">
+          ${completed.map(m=>`<div class="tl-item done"><h5>${m.t}</h5><p>${m.jail} · Budget ${m.budget} · ${m.status}</p></div>`).join("")}
+          ${ongoing.slice(0,2).map(m=>`<div class="tl-item"><h5>${m.t}</h5><p>${m.jail} · Budget ${m.budget} · ${m.status}</p></div>`).join("")}
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   RTI
+========================================================= */
+function screenRTI(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Right to Information</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">File and track RTI applications under the RTI Act, 2005, addressed to the Inspectorate of Prisons.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap detail-grid">
+      <div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>DESIGNATED OFFICERS</div>
+        <h3 style="margin-bottom:16px;">Public Information Officer &amp; Appellate Authority</h3>
+        <div class="card officials-list" style="padding:6px 22px;margin-bottom:28px;">
+          <div class="row"><div><div class="name">Shri T. N. Sahay</div><div class="desig">Public Information Officer (PIO) — Deputy IG (Reforms)</div></div></div>
+          <div class="row"><div><div class="name">Shri R. S. Bhagat, IPS</div><div class="desig">First Appellate Authority (FAA) — Inspector General of Prisons</div></div></div>
+        </div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>RTI MANUAL &amp; REPORTS</div>
+        <h3 style="margin-bottom:16px;">Downloads</h3>
+        <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+          ${["RTI Manual under Section 4(1)(b)","Annual RTI Report 2025–26","RTI Application Form","First Appeal Form"].map(d=>`<div class="card" style="padding:16px;"><div class="doc-ico" style="margin-bottom:10px;">${ICN.doc}</div><h4 style="font-size:13px;margin-bottom:8px;">${d}</h4><button class="btn btn-ghost btn-sm" style="padding-left:0;">${ICN.download} PDF</button></div>`).join("")}
+        </div>
+      </div>
+      <div>
+        <div class="card side-card" style="margin-bottom:16px;">
+          <h4>File an RTI application</h4>
+          <div class="field" style="margin:14px 0;"><label>Full name</label><input placeholder="Applicant name"></div>
+          <div class="field" style="margin-bottom:14px;"><label>Information sought</label><textarea placeholder="Describe the information requested…"></textarea></div>
+          <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center;" onclick="toast('RTI application submitted — reference #RTI-2026-0038')">Submit Application</button>
+        </div>
+        <div class="card side-card">
+          <h4>FAQs</h4>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin-bottom:10px;"><b>Response time:</b> 30 days as per the RTI Act, 2005.</p>
+          <p style="font-size:12.5px;color:var(--ink-soft);"><b>Fee:</b> ₹10 application fee; BPL applicants exempted.</p>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   DOWNLOAD CENTER
+========================================================= */
+function screenDownloads(){
+  const cats=["All","Act","Rule","SOP","Form","Circular","Report","Manual"];
+  const active = S.jailType2 || "All";
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Download Center</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Every form, act, circular and report used across the portal — organised in one categorised library.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="tabbar">${cats.map(c=>`<button class="${active===c?'active':''}" onclick="S.jailType2='${c}';render();">${c}</button>`).join("")}</div>
+      <div class="card" style="overflow:hidden;">
+        <table class="table">
+          <thead><tr><th>Document</th><th>Category</th><th>Source / Date</th><th>Size</th><th></th></tr></thead>
+          <tbody>
+            ${ACTS.filter(a=>active==="All"||a.type===active).map(a=>`<tr>
+              <td><div class="doc-row"><div class="doc-ico">${ICN.doc}</div><span style="font-weight:600;">${a.title}</span></div></td>
+              <td><span class="tag tag-grey">${a.type}</span></td>
+              <td style="color:var(--ink-soft);">${a.date}</td>
+              <td style="color:var(--ink-soft);font-family:var(--font-mono);">${a.size}</td>
+              <td><button class="btn btn-ghost btn-sm">${ICN.download} Download</button></td>
+            </tr>`).join("")}
+            ${["Mulakat (Visitation) Application Form","Parole Application Form","Legal Aid Request Form","Public Grievance Form"].filter(()=>active==="All"||active==="Form").map(d=>`<tr>
+              <td><div class="doc-row"><div class="doc-ico">${ICN.doc}</div><span style="font-weight:600;">${d}</span></div></td>
+              <td><span class="tag tag-grey">Form</span></td>
+              <td style="color:var(--ink-soft);">Citizen's Charter</td>
+              <td style="color:var(--ink-soft);font-family:var(--font-mono);">210 KB</td>
+              <td><button class="btn btn-ghost btn-sm">${ICN.download} Download</button></td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   ARCHIVE
+========================================================= */
+function screenArchive(){
+  const years=["All","2026","2025","2024","2023","2022","2021"];
+  const cats=["All","Circular","Report","Tender","Notification"];
+  let rows=ARCHIVE.filter(a=>(S.archiveYear==="All"||a.year===S.archiveYear)&&(S.archiveCat==="All"||a.cat===S.archiveCat));
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Archive</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Historical circulars, reports and notifications, searchable by year, category or department.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="filter-row">
+        <div class="search-wrap">${ICN.search}<input type="text" placeholder="Search the archive…"></div>
+        <select onchange="S.archiveYear=this.value;render();">${years.map(y=>`<option ${S.archiveYear===y?'selected':''}>${y}</option>`).join("")}</select>
+        <select onchange="S.archiveCat=this.value;render();">${cats.map(c=>`<option ${S.archiveCat===c?'selected':''}>${c}</option>`).join("")}</select>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:18px;">${rows.length} of ${ARCHIVE.length} archived records</p>
+      <div class="card" style="overflow:hidden;">
+        <table class="table">
+          <thead><tr><th>Year</th><th>Category</th><th>Department</th><th>Title</th><th></th></tr></thead>
+          <tbody>
+            ${rows.length ? rows.map(a=>`<tr><td style="font-family:var(--font-mono);">${a.year}</td><td><span class="tag tag-grey">${a.cat}</span></td><td style="color:var(--ink-soft);">${a.dept}</td><td><b>${a.title}</b></td><td><button class="btn btn-ghost btn-sm">${ICN.download} PDF</button></td></tr>`).join("") : `<tr><td colspan="5"><div class="empty-state">${ICN.search}<p>No archived records match your filters.</p></div></td></tr>`}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   LATEST NEWS
+========================================================= */
+function screenNews(){
+  const kinds=[["Health Initiative","tag-green"],["Reform","tag-rust"],["Legal Aid","tag-amber"],["Inspection","tag-grey"],["Yoga & Wellness","tag-green"]];
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Latest News</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Announcements, office orders, notifications, press releases and recruitment updates from across the department.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="tabbar">${["All","Announcements","Office Orders","Notifications","Press Release","Recruitment"].map((c,i)=>`<button class="${i===0?'active':''}">${c}</button>`).join("")}</div>
+      <div class="grid" style="grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;">
+        ${NEWS.concat(NEWS.slice(0,2).map(n=>({...n,title:n.title+" — follow-up update",date:"28 Apr"}))).map(n=>`
+          <div style="background:var(--white);padding:20px 24px;display:flex;gap:18px;">
+            <div style="font-family:var(--font-mono);font-size:12px;color:var(--rust-deep);width:56px;flex-shrink:0;padding-top:2px;">${n.date}</div>
+            <div style="flex:1;"><span class="tag tag-rust" style="margin-bottom:8px;">${n.tag}</span><h4 style="font-size:15px;margin:6px 0 6px;">${n.title}</h4><p style="font-size:13px;color:var(--ink-soft);">${n.body}</p></div>
+          </div>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   VIDEO GALLERY
+========================================================= */
+function screenVideoGallery(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Video Gallery</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Documentaries, event coverage and departmental announcements — hosted on the Inspectorate's official YouTube channel.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+        ${VIDEOS.map(v=>`<div class="video-card"><div class="video-thumb" style="background:linear-gradient(135deg,${v.c1},${v.c2});"><div class="play">${ICN.play}</div><span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10.5px;padding:2px 6px;border-radius:3px;font-family:var(--font-mono);">${v.d}</span></div><div class="cap"><h5>${v.t}</h5><span>Inspectorate of Prisons · YouTube</span></div></div>`).join("")}
+      </div>
+      <div style="text-align:center;margin-top:30px;"><button class="btn btn-primary btn-sm">${ICN.play} Visit our YouTube Channel</button></div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   OFFICIAL DIRECTORY
+========================================================= */
+function screenDirectory(){
+  const list=OFFICIALS.filter(o=>(o.name+o.desig+o.jail).toLowerCase().includes(S.dirFilter.toLowerCase()));
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Official Directory</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Search Prison Headquarters and facility-level officials by name, designation or posting.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="filter-row">
+        <div class="search-wrap">${ICN.search}<input type="text" placeholder="Search by name, designation or facility…" value="${S.dirFilter}" oninput="S.dirFilter=this.value;render();"></div>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:18px;">${list.length} of ${OFFICIALS.length} officials</p>
+      <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+        ${list.length ? list.map(o=>`<div class="dir-card"><div class="dir-photo">${o.init}</div><div style="flex:1;"><h5>${o.name}</h5><div class="desig">${o.desig}</div><div class="meta">${o.jail} · ${o.phone}<br>${o.email}</div></div></div>`).join("") : `<div class="empty-state" style="grid-column:1/-1;">${ICN.search}<p>No officials match your search.</p></div>`}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   VISITOR REGISTRATION (multi-step workflow)
+========================================================= */
+function screenVisitor(){
+  const steps=["Register","OTP Verify","Approval","Visit Pass"];
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Visitor Registration</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Register for a mulakat (visitation) appointment — verified by OTP and approved by the facility before your visit.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap" style="max-width:760px;">
+      <div class="stepper">
+        ${steps.map((s,i)=>`<div class="step ${i+1<S.visitorStep?'done':i+1===S.visitorStep?'active':''}"><div class="circ">${i+1<S.visitorStep?ICN.check:i+1}</div><div class="lbl">${s}</div></div>`).join("")}
+      </div>
+      <div class="card" style="padding:30px;">
+        ${visitorStepBody()}
+      </div>
+    </div>
+  </section>`;
+}
+function visitorStepBody(){
+  if(S.visitorStep===1){
+    return `<h3 style="font-size:17px;margin-bottom:18px;">Visitor &amp; inmate details</h3>
+    <div class="form-grid" style="margin-bottom:14px;">
+      <div class="field"><label>Visitor full name</label><input placeholder="As per ID proof"></div>
+      <div class="field"><label>Mobile number</label><input placeholder="10-digit number"></div>
+    </div>
+    <div class="form-grid" style="margin-bottom:14px;">
+      <div class="field"><label>Facility to visit</label><select>${JAILS.map(j=>`<option>${j.name}</option>`).join("")}</select></div>
+      <div class="field"><label>Inmate name / ID</label><input placeholder="Full name or prisoner ID"></div>
+    </div>
+    <div class="form-grid full" style="margin-bottom:20px;"><div class="field"><label>Relationship to inmate</label><input placeholder="e.g. Spouse, Parent, Legal Counsel"></div></div>
+    <button class="btn btn-primary" onclick="S.visitorStep=2;render();">Continue ${ICN.chev}</button>`;
+  }
+  if(S.visitorStep===2){
+    return `<h3 style="font-size:17px;margin-bottom:10px;">Verify your mobile number</h3>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:20px;">An OTP has been sent to your registered mobile number (demo: use <b>1234</b>).</p>
+    <div class="field" style="max-width:220px;margin-bottom:20px;"><label>Enter OTP</label><input maxlength="4" placeholder="••••"></div>
+    <button class="btn btn-primary" onclick="S.visitorStep=3;render();">Verify &amp; Continue ${ICN.chev}</button>
+    <button class="btn btn-ghost btn-sm" style="margin-left:8px;">Resend OTP</button>`;
+  }
+  if(S.visitorStep===3){
+    return `<div style="text-align:center;padding:20px 0;">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--forest-mist);color:var(--forest);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">${ICN.clock}</div>
+      <h3 style="font-size:18px;margin-bottom:8px;">Submitted for facility approval</h3>
+      <p style="font-size:13.5px;color:var(--ink-soft);max-width:420px;margin:0 auto 22px;">Your registration reference is <b>VR-2026-3381</b>. The facility Superintendent typically approves visitation requests within 3 working days. You'll receive an SMS once approved.</p>
+      <button class="btn btn-primary" onclick="S.visitorStep=4;render();">Simulate Approval ${ICN.chev}</button>
+    </div>`;
+  }
+  return `<div style="text-align:center;padding:10px 0;">
+    <div style="width:56px;height:56px;border-radius:50%;background:var(--forest-mist);color:var(--forest);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">${ICN.check}</div>
+    <h3 style="font-size:18px;margin-bottom:8px;">Visit Pass Approved</h3>
+    <div class="card" style="max-width:340px;margin:18px auto;padding:20px;text-align:left;border-color:var(--forest);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><span class="tag tag-green">Approved</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);">VR-2026-3381</span></div>
+      <div style="display:flex;align-items:center;justify-content:center;padding:16px 0;">${ICN.qrcode}</div>
+      <p style="font-size:12.5px;color:var(--ink-soft);text-align:center;">Present this QR pass with photo ID at the facility gate on your scheduled date.</p>
+    </div>
+    <button class="btn btn-line btn-sm" onclick="nav('complaint-track')">Track another request ${ICN.chev}</button>
+  </div>`;
+}
+
+/* =========================================================
+   COMPLAINT TRACKING
+========================================================= */
+function screenComplaintTrack(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Track a Complaint</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Enter your tracking ID to check the status of a grievance or complaint you've filed.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap" style="max-width:640px;">
+      <div class="card" style="padding:26px;margin-bottom:24px;">
+        <div class="field" style="margin-bottom:16px;"><label>Tracking ID</label><input placeholder="e.g. CMP-2026-0091" value="${S.trackId}" oninput="S.trackId=this.value;"></div>
+        <button class="btn btn-primary" onclick="trackComplaint()">Track Status</button>
+      </div>
+      ${S.trackResult ? `
+      <div class="card" style="padding:24px;">
+        ${S.trackResult==="notfound" ? `<div class="empty-state">${ICN.search}<p>No record found for that tracking ID. Try one of the demo IDs below.</p></div>` : `
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;"><h4 style="font-size:15px;">${S.trackResult.id}</h4><span class="tag ${S.trackResult.status==='Resolved'?'tag-green':S.trackResult.status==='Escalated'?'tag-red':'tag-amber'}">${S.trackResult.status}</span></div>
+        <div class="trackbar">
+          ${["Acknowledged","In Progress","Resolution"].map((s,i)=>`<div class="seg ${(S.trackResult.status==='Resolved'&&i<3)||(S.trackResult.status!=='Resolved'&&i<1)||(S.trackResult.status==='In Progress'&&i<2)||(S.trackResult.status==='Escalated'&&i<2)?'on':''}">${s}</div>`).join("")}
+        </div>
+        <p style="font-size:13px;color:var(--ink-soft);">Category: <b>${S.trackResult.cat}</b> · Filed on ${S.trackResult.date}</p>
+        `}
+      </div>` : ""}
+      <p style="font-size:12px;color:var(--ink-soft);margin-top:16px;">Demo IDs: ${COMPLAINTS.map(c=>c.id).join(", ")}</p>
+    </div>
+  </section>`;
+}
+function trackComplaint(){
+  const found=COMPLAINTS.find(c=>c.id.toLowerCase()===S.trackId.trim().toLowerCase());
+  S.trackResult = found || "notfound";
+  render();
+}
+
+/* =========================================================
+   JOURNEY GUIDE (end-to-end demonstration)
+========================================================= */
+function screenJourneys(){
+  const journeys=[
+   {t:"Citizen Journey", steps:["Homepage","Search Jail","Jail Details","Google Map","Visitor Registration","Captcha / OTP","Acknowledgement","Track Status"], go:()=>"nav('home')"},
+   {t:"Jail Officer Journey", steps:["Login","Dashboard","Upload News","Upload Gallery","Submit","Waiting Approval","Published"], go:()=>"nav('login')"},
+   {t:"PHQ Journey", steps:["Login","Dashboard","Pending Approval","Review","Approve","Audit Logs","Analytics"], go:()=>"nav('login')"}
+  ];
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Journey Guide</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Three complete, click-through journeys demonstrating how citizens, jail officers and Prison Headquarters use this portal end to end.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:1fr;gap:22px;">
+        ${journeys.map(j=>`<div class="card" style="padding:24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;"><h3 style="font-size:17px;">${j.t}</h3><button class="btn btn-rust btn-sm" onclick="${j.go()}">Start journey ${ICN.chev}</button></div>
+          <div class="stepper" style="margin-bottom:0;">
+            ${j.steps.map((s,i)=>`<div class="step ${i===0?'active':''}"><div class="circ">${i+1}</div><div class="lbl">${s}</div></div>`).join("")}
+          </div>
+        </div>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
+   ANDROID APP PREVIEW
+========================================================= */
+function screenAndroidApp(){
+  const screens=[
+   {cap:"Splash", body:`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:var(--forest);color:#fff;">${emblemLight(48)}<div style="margin-top:14px;font-weight:700;font-size:12px;text-align:center;">Prisons &amp; Correctional<br>Services, Jharkhand</div></div>`},
+   {cap:"Home", body:`<div class="app-bar">${emblemLight(18)} Prisons GoJ</div><div class="app-body">
+      <div class="app-card"><div class="t">13 Facilities Statewide</div><div class="s">3,289 under custody</div></div>
+      <div class="app-card"><div class="t">Latest: TB-Mukt Karagar camps conclude</div><div class="s">12 Jun · Health Initiative</div></div>
+      <div class="app-card"><div class="t">Visitor Registration</div><div class="s">Book a mulakat appointment</div></div>
+    </div>`},
+   {cap:"Jails Directory", body:`<div class="app-bar">${ICN.arrowleft} Jails Directory</div><div class="app-body">
+      ${JAILS.slice(0,4).map(j=>`<div class="app-card"><div class="t">${j.name}</div><div class="s">${j.type} · ${j.district}</div></div>`).join("")}
+    </div>`},
+   {cap:"Visitor Registration", body:`<div class="app-bar">${ICN.arrowleft} Register Visit</div><div class="app-body">
+      <div class="app-card"><div class="t">Step 1 of 4</div><div class="s">Visitor &amp; inmate details</div></div>
+      <div style="margin-top:10px;"><div style="height:6px;background:var(--paper-deep);border-radius:6px;"><div style="height:100%;width:25%;background:var(--rust);border-radius:6px;"></div></div></div>
+    </div>`},
+   {cap:"Feedback", body:`<div class="app-bar">${ICN.arrowleft} Feedback</div><div class="app-body">
+      <div class="app-card"><div class="t">Rate your experience</div><div class="s">★★★★☆</div></div>
+      <div class="app-card"><div class="t">Comments</div><div class="s">Tap to write feedback…</div></div>
+    </div>`},
+   {cap:"Profile", body:`<div class="app-bar">${ICN.arrowleft} My Profile</div><div class="app-body">
+      <div class="app-card"><div class="t">Suresh Mahato</div><div class="s">+91 98XXX XXX12</div></div>
+      <div class="app-card"><div class="t">My Registrations</div><div class="s">2 active passes</div></div>
+      <div class="app-card"><div class="t">Downloads</div><div class="s">Saved forms &amp; passes</div></div>
+    </div>`}
+  ];
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Mobile App Preview</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Companion Android application prototype screens — Splash, Home, Jails, Visitor Registration, Feedback and Profile.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="phone-row">
+        ${screens.map(s=>`<div><div class="phone"><div class="screen"><div class="notch"></div>${s.body}<div class="navbar"><div class="on"></div><div></div><div></div><div></div></div></div></div><div class="cap">${s.cap}</div></div>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+/* =========================================================
    LOGIN
 ========================================================= */
 function screenLogin(){
@@ -1103,22 +1930,33 @@ function sidebarLinks(){
     return [
       ["section","OVERVIEW"],
       ["admin-dashboard","grid","Dashboard"],
-      ["section","CONTENT"],
-      ["admin-content","doc","Content Management",CONTENT_QUEUE.filter(c=>c.status==="Pending").length],
-      ["jails","building","Jails Directory"],
+      ["admin-analytics","chartbar","Analytics"],
+      ["section","CONTENT & APPROVALS"],
+      ["admin-content","doc","Pending Approvals",CONTENT_QUEUE.filter(c=>c.status==="Pending").length],
+      ["admin-cms","upload","Content Modules"],
+      ["admin-homepage","building","Homepage CMS"],
+      ["section","DIRECTORY"],
+      ["admin-jails","building","Manage Jails"],
+      ["admin-officials","users","Manage Officials"],
+      ["section","ACCESS CONTROL"],
+      ["admin-users","users","Manage Users"],
+      ["admin-roles","key","Manage Roles"],
       ["section","OPERATIONS"],
       ["admin-grievances","alert","Grievances",GRIEVANCES.filter(g=>g.status==="Open"||g.status==="Escalated").length],
-      ["admin-users","users","User &amp; Access"],
-      ["admin-audit","log","Audit Log"],
+      ["admin-notifications","bell","Notification Center"],
+      ["admin-audit","log","Audit &amp; Activity Logs"],
       ["section","SYSTEM"],
-      ["settings","settings","Settings"]
+      ["admin-seo","globe","Language &amp; SEO"],
+      ["settings","settings","System Settings"]
     ];
   }
   return [
     ["section","OVERVIEW"],
     ["jail-dashboard","grid","Dashboard"],
+    ["jail-profile","building","My Jail Profile"],
     ["section","MANAGE CONTENT"],
     ["jail-editor","doc","Page Editor"],
+    ["jail-status","refresh","Submission Status",CONTENT_QUEUE.filter(c=>c.jail==="Birsa Munda Central Jail"&&c.status==="Pending").length],
     ["section","SUPPORT"],
     ["jail-grievance","alert","Grievances",GRIEVANCES.filter(g=>g.jail.includes("Ranchi")).length]
   ];
@@ -1321,6 +2159,160 @@ function screenSettings(){
   `, "Settings", "System configuration & compliance status");
 }
 
+function screenAdminAnalytics(){
+  const totalCap=JAILS.reduce((a,j)=>a+j.capacity,0), totalOcc=JAILS.reduce((a,j)=>a+j.occ,0);
+  return portalShell(`
+    <div class="kpi-grid">
+      <div class="card kpi"><div class="top"><div class="ic" style="background:var(--forest-mist);color:var(--forest);">${ICN.search}</div></div><div class="num">18,420</div><div class="lab">Visitors this month</div><div class="delta" style="color:var(--forest);">+6.4% vs last month</div></div>
+      <div class="card kpi"><div class="top"><div class="ic" style="background:#FBF0DD;color:var(--amber);">${ICN.download}</div></div><div class="num">3,110</div><div class="lab">Document downloads</div><div class="delta" style="color:var(--amber);">Acts &amp; Forms lead</div></div>
+      <div class="card kpi"><div class="top"><div class="ic" style="background:var(--rust-mist);color:var(--rust-deep);">${ICN.doc}</div></div><div class="num">${CONTENT_QUEUE.length}</div><div class="lab">Content items this cycle</div><div class="delta" style="color:var(--rust-deep);">${CONTENT_QUEUE.filter(c=>c.status==='Pending').length} pending</div></div>
+      <div class="card kpi"><div class="top"><div class="ic" style="background:#F6E3DF;color:var(--red);">${ICN.alert}</div></div><div class="num">${GRIEVANCES.length}</div><div class="lab">Grievances logged</div><div class="delta" style="color:var(--red);">${GRIEVANCES.filter(g=>g.status==='Resolved').length} resolved</div></div>
+    </div>
+    <div class="panel-grid">
+      <div class="card panel">
+        <div class="panel-head"><h3>Most-viewed pages (30 days)</h3></div>
+        <div style="padding:18px 20px;">
+          ${[["Jails Directory",92],["Citizen's Charter",78],["Visitor Registration",71],["Acts &amp; Rules",58],["Tenders",44],["Gallery",39]].map(([lab,pct])=>`<div class="stat-bar-row"><span>${lab}</span><span style="font-family:var(--font-mono);color:var(--ink-soft);">${pct}%</span></div><div class="stat-bar"><div style="width:${pct}%;"></div></div>`).join("")}
+        </div>
+      </div>
+      <div class="card panel">
+        <div class="panel-head"><h3>Recent activity</h3></div>
+        ${AUDIT.slice(0,5).map(a=>`<div class="alert-row"><div class="alert-dot" style="background:var(--forest);"></div><div style="flex:1;"><p><b>${a.action}</b></p><div class="t">${a.module} · ${a.time}</div></div></div>`).join("")}
+      </div>
+    </div>
+  `, "Analytics Dashboard", "Visitor traffic, downloads, and content activity across the portal");
+}
+
+function screenAdminCms(){
+  const modules=[["news","News"],["gallery","Gallery"],["tenders","Tenders"],["circulars","Circulars"],["downloads","Downloads"]];
+  let body="";
+  if(S.cmsModule==="news"){
+    body=`<table class="table"><thead><tr><th>Headline</th><th>Tag</th><th>Date</th><th>Status</th><th></th></tr></thead><tbody>
+      ${NEWS.map(n=>`<tr><td><b>${n.title}</b></td><td><span class="tag tag-rust">${n.tag}</span></td><td>${n.date}</td><td><span class="tag tag-green">Published</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>`).join("")}
+    </tbody></table>`;
+  } else if(S.cmsModule==="gallery"){
+    body=`<div class="gallery-grid" style="padding:20px;">${GALLERY.map(g=>`<div class="gphoto" style="background:linear-gradient(135deg,${g.c1},${g.c2});">${ICN.image}<div class="lbl">${g.l}</div></div>`).join("")}</div>`;
+  } else if(S.cmsModule==="tenders"){
+    body=`<table class="table"><thead><tr><th>Reference</th><th>Title</th><th>Closing</th><th>Status</th><th></th></tr></thead><tbody>
+      ${TENDERS.map(tnd=>`<tr><td style="font-family:var(--font-mono);font-size:12px;">${tnd.ref}</td><td><b>${tnd.title}</b></td><td>${tnd.closing}</td><td><span class="tag ${tnd.status==='Open'?'tag-green':'tag-grey'}">${tnd.status}</span></td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>`).join("")}
+    </tbody></table>`;
+  } else if(S.cmsModule==="circulars"){
+    body=`<table class="table"><thead><tr><th>Title</th><th>Category</th><th>Date</th><th></th></tr></thead><tbody>
+      ${ACTS.filter(a=>a.type==="Circular"||a.type==="SOP").map(a=>`<tr><td><b>${a.title}</b></td><td><span class="tag tag-grey">${a.type}</span></td><td>${a.date}</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>`).join("")}
+    </tbody></table>`;
+  } else {
+    body=`<table class="table"><thead><tr><th>Document</th><th>Category</th><th>Size</th><th></th></tr></thead><tbody>
+      ${ACTS.map(a=>`<tr><td><div class="doc-row"><div class="doc-ico">${ICN.doc}</div><span style="font-weight:600;">${a.title}</span></div></td><td><span class="tag tag-grey">${a.type}</span></td><td style="font-family:var(--font-mono);">${a.size}</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>`).join("")}
+    </tbody></table>`;
+  }
+  return portalShell(`
+    <div class="toolbar"><div class="tabbar" style="margin-bottom:0;">${modules.map(([id,lab])=>`<button class="${S.cmsModule===id?'active':''}" onclick="S.cmsModule='${id}';render();">${lab}</button>`).join("")}</div><button class="btn btn-primary btn-sm">${ICN.plus} Add New</button></div>
+    <div class="card" style="overflow:hidden;">${body}</div>
+  `, "Content Modules", "Central management for News, Gallery, Tenders, Circulars & Downloads — publishes directly at PHQ level");
+}
+
+function screenAdminHomepage(){
+  const tabs=[["banner","Banner"],["stats","Statistics"],["quicklinks","Quick Links"],["footer","Footer"]];
+  let body="";
+  if(S.homeCmsTab==="banner"){
+    body=`<div class="form-grid full" style="margin-bottom:14px;"><div class="field"><label>Hero eyebrow text</label><input value="Government of Jharkhand · Department of Home, Jail & Disaster Management"></div></div>
+    <div class="form-grid full" style="margin-bottom:14px;"><div class="field"><label>Hero title</label><input value="Inspectorate of Prisons & Correctional Services"></div></div>
+    <div class="form-grid full" style="margin-bottom:20px;"><div class="field"><label>Hero description</label><textarea>A single digital window into Jharkhand's prison administration.</textarea></div></div>`;
+  } else if(S.homeCmsTab==="stats"){
+    body=`<div class="form-grid">
+      <div class="field"><label>Facilities statewide</label><input value="13"></div>
+      <div class="field"><label>Districts with legal aid access</label><input value="24"></div>
+      <div class="field"><label>Portal uptime label</label><input value="99.4%"></div>
+      <div class="field"><label>Inmates under custody (auto)</label><input value="Computed from Jails Directory" disabled></div>
+    </div>`;
+  } else if(S.homeCmsTab==="quicklinks"){
+    body=`<table class="table"><thead><tr><th>Card</th><th>Target Page</th><th></th></tr></thead><tbody>
+      <tr><td>Find a Jail</td><td>Jails Directory</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+      <tr><td>Mulakat &amp; Forms</td><td>Citizen's Charter</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+      <tr><td>Acts &amp; Rules</td><td>Acts &amp; Rules</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+      <tr><td>File a Grievance</td><td>Contact &amp; Grievance</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+    </tbody></table>`;
+  } else {
+    body=`<div class="form-grid full" style="margin-bottom:14px;"><div class="field"><label>Address block</label><textarea>Engineers Hostel #1, Near Golchakkar, Dhurwa, Ranchi – 834004, Jharkhand</textarea></div></div>
+    <div class="form-grid"><div class="field"><label>Facebook URL</label><input placeholder="https://facebook.com/…"></div><div class="field"><label>Twitter / X URL</label><input placeholder="https://x.com/…"></div></div>`;
+  }
+  return portalShell(`
+    <div class="tabbar">${tabs.map(([id,lab])=>`<button class="${S.homeCmsTab===id?'active':''}" onclick="S.homeCmsTab='${id}';render();">${lab}</button>`).join("")}</div>
+    <div class="card" style="padding:26px;">${body}<button class="btn btn-primary btn-sm" style="margin-top:6px;" onclick="toast('Homepage content updated')">Save Changes</button></div>
+  `, "Homepage CMS", "Every element on the public homepage is editable from here");
+}
+
+function screenAdminJails(){
+  return portalShell(`
+    <div class="toolbar"><p style="font-size:13.5px;color:var(--ink-soft);">${JAILS.length} facilities on the portal</p><button class="btn btn-primary btn-sm">${ICN.plus} Add Facility</button></div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Facility</th><th>Type</th><th>District</th><th>Occupancy</th><th>Updated</th><th></th></tr></thead>
+        <tbody>${JAILS.map(j=>`<tr><td><b>${j.name}</b></td><td><span class="tag tag-grey">${j.type}</span></td><td>${j.district}</td><td>${j.occ}/${j.capacity}</td><td style="color:var(--ink-soft);">${j.updated}</td><td><button class="btn btn-ghost btn-sm" onclick="nav('jail-detail','${j.id}')">View</button></td></tr>`).join("")}</tbody>
+      </table>
+    </div>
+  `, "Manage Jails", "Add, edit or deactivate facility listings shown on the public portal");
+}
+
+function screenAdminOfficials(){
+  return portalShell(`
+    <div class="toolbar"><p style="font-size:13.5px;color:var(--ink-soft);">${OFFICIALS.length} officials in the directory</p><button class="btn btn-primary btn-sm">${ICN.plus} Add Official</button></div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Name</th><th>Designation</th><th>Posting</th><th>Contact</th><th></th></tr></thead>
+        <tbody>${OFFICIALS.map(o=>`<tr><td><b>${o.name}</b></td><td>${o.desig}</td><td>${o.jail}</td><td style="font-size:12px;color:var(--ink-soft);">${o.phone}</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>`).join("")}</tbody>
+      </table>
+    </div>
+  `, "Manage Officials", "Directory shown publicly under Official Directory");
+}
+
+function screenAdminRoles(){
+  return portalShell(`
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:18px;">Each role's permissions across core portal capabilities. Changes apply immediately on save.</p>
+    <div class="card" style="overflow:auto;">
+      <table class="table matrix">
+        <thead><tr><th>Role</th>${ROLES_COLS.map(c=>`<th>${c}</th>`).join("")}</tr></thead>
+        <tbody>${ROLES_MATRIX.map(r=>`<tr><td><b>${r.role}</b></td>${r.perms.map(p=>`<td>${p?`<span class="dot-y"></span>`:`<span class="dot-n"></span>`}</td>`).join("")}</tr>`).join("")}</tbody>
+      </table>
+    </div>
+    <div style="margin-top:18px;"><button class="btn btn-primary btn-sm" onclick="toast('Role permissions saved')">Save Permissions</button></div>
+  `, "Manage Roles", "Role-based access control (RBAC) across the CMS");
+}
+
+function screenAdminNotifications(){
+  const notifs=[
+   {t:"5 items awaiting your approval", s:"Content queue", time:"10 min ago", ic:"doc"},
+   {t:"Grievance #g4 escalated — Hazaribagh Central Jail", s:"Grievance Management", time:"1 hr ago", ic:"alert"},
+   {t:"New jail editor account requested — Gumla Sub Jail", s:"User & Access", time:"3 hrs ago", ic:"users"},
+   {t:"Scheduled backup completed successfully", s:"System", time:"Today, 03:00 AM", ic:"shield"},
+   {t:"Tender JAPIT/Prison/Tier-3/2026/01 closes in 3 days", s:"Tenders", time:"Yesterday", ic:"clock"}
+  ];
+  return portalShell(`
+    <div class="card panel">
+      ${notifs.map(n=>`<div class="alert-row"><div class="ic" style="width:32px;height:32px;border-radius:7px;background:var(--forest-mist);color:var(--forest);display:flex;align-items:center;justify-content:center;">${ICN[n.ic]}</div><div style="flex:1;"><p><b>${n.t}</b></p><div class="t">${n.s} · ${n.time}</div></div></div>`).join("")}
+    </div>
+  `, "Notification Center", "System-wide alerts across content, users and operations");
+}
+
+function screenAdminSeo(){
+  return portalShell(`
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card side-card">
+        <h4>Language Management</h4>
+        <div class="line">${ICN.globe}<span>English — Active, default</span></div>
+        <div class="line">${ICN.globe}<span>Hindi (हिंदी) — Active</span></div>
+        <div class="line">${ICN.plus}<span>Add another scheduled language (Santali — planned)</span></div>
+      </div>
+      <div class="card side-card">
+        <h4>SEO Settings</h4>
+        <div class="field" style="margin:12px 0;"><label>Meta title</label><input value="Inspectorate of Prisons & Correctional Services, Jharkhand"></div>
+        <div class="field" style="margin-bottom:12px;"><label>Meta description</label><textarea>Official portal for prison administration, citizen services and reform initiatives across Jharkhand's 13 correctional facilities.</textarea></div>
+        <button class="btn btn-line btn-sm">${ICN.refresh} Regenerate Sitemap</button>
+      </div>
+    </div>
+  `, "Language & SEO Settings", "Multi-lingual content and search-engine metadata");
+}
+
 /* ===== JAIL OFFICER ===== */
 function screenJailDashboard(){
   const myJail="Birsa Munda Central Jail";
@@ -1350,7 +2342,7 @@ function screenJailDashboard(){
 }
 
 function screenJailEditor(){
-  const tabs=[["officials","Officials"],["gallery","Gallery"],["circulars","Circulars"],["events","Events"]];
+  const tabs=[["officials","Officials"],["news","News"],["gallery","Gallery"],["videos","Video Gallery"],["circulars","Circulars"],["events","Events"],["downloads","Downloads"],["industry","Prison Industry"]];
   return portalShell(`
     <div class="tabbar">${tabs.map(([id,lab])=>`<button class="${S.jailEditorTab===id?'active':''}" onclick="S.jailEditorTab='${id}';render();">${lab}</button>`).join("")}</div>
     <div class="card" style="padding:26px;">
@@ -1385,13 +2377,89 @@ function jailEditorBody(){
     <div class="field" style="margin-bottom:20px;"><label>Details</label><textarea placeholder="Circular content…"></textarea></div>
     <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
   }
-  return `<h3 style="font-size:16px;margin-bottom:18px;">New event report</h3>
+  if(S.jailEditorTab==="events"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">New event report</h3>
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="field"><label>Event title</label><input placeholder="e.g. Yoga Day observance"></div>
+      <div class="field"><label>Date</label><input type="date"></div>
+    </div>
+    <div class="field" style="margin-bottom:20px;"><label>Summary</label><textarea placeholder="What happened…"></textarea></div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  if(S.jailEditorTab==="news"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">New news item</h3>
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="field"><label>Headline</label><input placeholder="e.g. Legal aid camp held at facility"></div>
+      <div class="field"><label>Category tag</label><select><option>Reform</option><option>Health Initiative</option><option>Legal Aid</option><option>Inspection</option></select></div>
+    </div>
+    <div class="field" style="margin-bottom:20px;"><label>Body</label><textarea placeholder="Full news content…"></textarea></div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  if(S.jailEditorTab==="videos"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">Add a video</h3>
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="field"><label>YouTube URL</label><input placeholder="https://youtube.com/watch?v=…"></div>
+      <div class="field"><label>Title</label><input placeholder="e.g. Vocational training walkthrough"></div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  if(S.jailEditorTab==="downloads"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">Upload a document</h3>
+    <div style="border:2px dashed var(--line);border-radius:6px;padding:36px;text-align:center;color:var(--ink-soft);margin-bottom:18px;">
+      ${ICN.upload}<p style="margin-top:10px;font-size:13.5px;">Drag a PDF here, or click to browse · max 10MB</p>
+    </div>
+    <div class="form-grid" style="margin-bottom:18px;">
+      <div class="field"><label>Title</label><input placeholder="e.g. Local Visitation SOP"></div>
+      <div class="field"><label>Category</label><select><option>SOP</option><option>Circular</option><option>Form</option><option>Report</option></select></div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  return `<h3 style="font-size:16px;margin-bottom:18px;">Prison industry update</h3>
   <div class="form-grid" style="margin-bottom:16px;">
-    <div class="field"><label>Event title</label><input placeholder="e.g. Yoga Day observance"></div>
-    <div class="field"><label>Date</label><input type="date"></div>
+    <div class="field"><label>Unit name</label><input placeholder="e.g. Tailoring & Garments"></div>
+    <div class="field"><label>Monthly output value (₹)</label><input placeholder="e.g. 42,000"></div>
   </div>
-  <div class="field" style="margin-bottom:20px;"><label>Summary</label><textarea placeholder="What happened…"></textarea></div>
+  <div class="field" style="margin-bottom:20px;"><label>Notes</label><textarea placeholder="Production notes for this cycle…"></textarea></div>
   <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+}
+
+function screenJailProfile(){
+  return portalShell(`
+    <div class="card" style="padding:26px;">
+      <h3 style="font-size:16px;margin-bottom:18px;">Facility profile</h3>
+      <div class="form-grid" style="margin-bottom:16px;">
+        <div class="field"><label>Facility name</label><input value="Birsa Munda Central Jail"></div>
+        <div class="field"><label>Type</label><input value="Central Jail" disabled></div>
+      </div>
+      <div class="form-grid" style="margin-bottom:16px;">
+        <div class="field"><label>Capacity</label><input value="1450"></div>
+        <div class="field"><label>Current occupancy</label><input value="1820"></div>
+      </div>
+      <div class="form-grid full" style="margin-bottom:16px;"><div class="field"><label>About this facility</label><textarea>Birsa Munda Central Jail is a central jail serving Ranchi district, operating under the administrative control of the Inspectorate of Prisons.</textarea></div></div>
+      <div class="form-grid" style="margin-bottom:16px;">
+        <div class="field"><label>Phone</label><input value="0651-2233012"></div>
+        <div class="field"><label>Email</label><input value="cj.ranchi@prisons.jharkhand.gov.in"></div>
+      </div>
+      <div class="form-grid full" style="margin-bottom:20px;"><div class="field"><label>Google Maps embed URL</label><input placeholder="https://maps.google.com/…"></div></div>
+      <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit Profile for Approval</button>
+    </div>
+  `, "My Jail Profile", "Birsa Munda Central Jail — changes route through Change Control before going live");
+}
+
+function screenJailStatus(){
+  const myJail="Birsa Munda Central Jail";
+  const mine=CONTENT_QUEUE.filter(c=>c.jail===myJail);
+  return portalShell(`
+    <div class="stepper" style="margin-bottom:30px;">
+      ${["Draft","Submit","Pending Approval","PHQ Review","Published"].map((s,i)=>`<div class="step ${i<3?'done':i===3?'active':''}"><div class="circ">${i<3?ICN.check:i+1}</div><div class="lbl">${s}</div></div>`).join("")}
+    </div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Item</th><th>Type</th><th>Submitted</th><th>Status</th></tr></thead>
+        <tbody>${mine.length?mine.map(c=>`<tr><td><b>${c.title}</b></td><td><span class="tag tag-grey">${c.type}</span></td><td style="color:var(--ink-soft);">${c.date}</td><td><span class="tag ${c.status==='Pending'?'tag-amber':c.status==='Approved'?'tag-green':'tag-red'}">${c.status}</span></td></tr>`).join(""):`<tr><td colspan="4"><div class="empty-state">${ICN.doc}<p>No submissions yet — use the Page Editor to create content.</p></div></td></tr>`}</tbody>
+      </table>
+    </div>
+  `, "Submission &amp; Approval Status", "Track every item you've submitted to PHQ for review");
 }
 function submitForApproval(){ toast("Submitted to PHQ for approval"); nav("jail-dashboard"); }
 
@@ -1418,6 +2486,8 @@ function changeFontSize(d){
   const sizes=[14,16,18];
   document.documentElement.style.fontSize = sizes[S.fontStep]+"px";
 }
+function toggleContrast(){ S.contrast=!S.contrast; document.body.classList.toggle("contrast", S.contrast); render(); }
+function toggleDark(){ S.darkmode=!S.darkmode; document.body.classList.toggle("dark", S.darkmode); render(); }
 
 /* =========================================================
    ROUTER / RENDER
@@ -1427,7 +2497,8 @@ function render(){
   if(S.screen==="login"){ app.innerHTML = screenLogin(); return; }
   if(S.screen==="public-preview"){ S.mode="public"; S.screen="home"; }
 
-  if(S.mode==="public" && S.screen!=="login" && !["admin-dashboard","admin-content","admin-users","admin-grievances","admin-audit","settings","jail-dashboard","jail-editor","jail-grievance"].includes(S.screen)){
+  const portalScreens=["admin-dashboard","admin-content","admin-users","admin-grievances","admin-audit","settings","jail-dashboard","jail-editor","jail-grievance","admin-analytics","admin-cms","admin-homepage","admin-jails","admin-officials","admin-roles","admin-notifications","admin-seo","jail-profile","jail-status"];
+  if(S.mode==="public" && S.screen!=="login" && !portalScreens.includes(S.screen)){
     let content="";
     switch(S.screen){
       case "home": content=screenHome(); break;
@@ -1439,6 +2510,21 @@ function render(){
       case "gallery": content=screenGallery(); break;
       case "charter": content=screenCharter(); break;
       case "contact": content=screenContact(); break;
+      case "hierarchy": content=screenHierarchy(); break;
+      case "industry": content=screenIndustry(); break;
+      case "activities": content=screenActivities(); break;
+      case "training": content=screenTraining(); break;
+      case "modernization": content=screenModernization(); break;
+      case "rti": content=screenRTI(); break;
+      case "downloads": content=screenDownloads(); break;
+      case "archive": content=screenArchive(); break;
+      case "news": content=screenNews(); break;
+      case "videos": content=screenVideoGallery(); break;
+      case "directory": content=screenDirectory(); break;
+      case "visitor": content=screenVisitor(); break;
+      case "complaint-track": content=screenComplaintTrack(); break;
+      case "journeys": content=screenJourneys(); break;
+      case "android-app": content=screenAndroidApp(); break;
       default: content=screenHome();
     }
     app.innerHTML = renderPublic(content);
@@ -1453,8 +2539,18 @@ function render(){
     case "admin-grievances": app.innerHTML=screenAdminGrievances(); break;
     case "admin-audit": app.innerHTML=screenAdminAudit(); break;
     case "settings": app.innerHTML=screenSettings(); break;
+    case "admin-analytics": app.innerHTML=screenAdminAnalytics(); break;
+    case "admin-cms": app.innerHTML=screenAdminCms(); break;
+    case "admin-homepage": app.innerHTML=screenAdminHomepage(); break;
+    case "admin-jails": app.innerHTML=screenAdminJails(); break;
+    case "admin-officials": app.innerHTML=screenAdminOfficials(); break;
+    case "admin-roles": app.innerHTML=screenAdminRoles(); break;
+    case "admin-notifications": app.innerHTML=screenAdminNotifications(); break;
+    case "admin-seo": app.innerHTML=screenAdminSeo(); break;
     case "jail-dashboard": app.innerHTML=screenJailDashboard(); break;
     case "jail-editor": app.innerHTML=screenJailEditor(); break;
+    case "jail-profile": app.innerHTML=screenJailProfile(); break;
+    case "jail-status": app.innerHTML=screenJailStatus(); break;
     case "jail-grievance": app.innerHTML=screenJailGrievance(); break;
     case "jails": app.innerHTML = S.mode==="portal" ? portalShell(screenJailsInline(), "Jails Directory", "Read-only reference for PHQ Admin") : renderPublic(screenJails()); break;
     default: app.innerHTML=screenAdminDashboard();
