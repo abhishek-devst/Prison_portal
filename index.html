@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prisons & Correctional Services, Jharkhand — Portal Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A1D1B;
+  --ink-soft:#4B5048;
+  --paper:#F7F5EF;
+  --paper-deep:#EFEBE0;
+  --line:#DCD6C6;
+  --forest:#1B4332;
+  --forest-deep:#0F2A20;
+  --forest-mist:#E7EEE9;
+  --rust:#B5572B;
+  --rust-deep:#8F441F;
+  --rust-mist:#F5E4D8;
+  --iron:#21241F;
+  --iron-soft:#2E322B;
+  --teal:#2F6F62;
+  --amber:#B8841F;
+  --red:#A23B2E;
+  --white:#FFFFFF;
+  --font-display:'Fraunces', serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+  --radius:3px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--paper);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+ul{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;font-weight:600;letter-spacing:-0.01em;}
+p{margin:0;}
+:focus-visible{outline:3px solid var(--rust);outline-offset:2px;}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--forest);color:var(--white);padding:10px 18px;z-index:999;border-radius:0 0 4px 0;}
+.skip-link:focus{left:0;}
+
+/* ===== layout helpers ===== */
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.grid{display:grid;gap:24px;}
+.eyebrow{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--font-mono);font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--rust-deep);font-weight:600;margin-bottom:10px;
+}
+.bars{display:flex;align-items:flex-end;gap:3px;height:14px;}
+.bars span{width:2.5px;background:var(--rust);display:block;}
+.bars span:nth-child(1){height:60%;}
+.bars span:nth-child(2){height:100%;}
+.bars span:nth-child(3){height:40%;}
+.bars span:nth-child(4){height:80%;}
+.bars span:nth-child(5){height:55%;}
+.section{padding:64px 0;}
+.section-tight{padding:40px 0;}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:34px;flex-wrap:wrap;}
+.section-head h2{font-size:30px;}
+.section-sub{color:var(--ink-soft);font-size:15px;max-width:520px;margin-top:6px;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 20px;border-radius:var(--radius);font-weight:600;font-size:14px;
+  border:1.5px solid transparent;transition:all .15s ease;white-space:nowrap;
+}
+.btn-primary{background:var(--forest);color:var(--white);}
+.btn-primary:hover{background:var(--forest-deep);}
+.btn-rust{background:var(--rust);color:var(--white);}
+.btn-rust:hover{background:var(--rust-deep);}
+.btn-line{background:transparent;border-color:var(--ink);color:var(--ink);}
+.btn-line:hover{background:var(--ink);color:var(--white);}
+.btn-line-light{background:transparent;border-color:rgba(255,255,255,.5);color:var(--white);}
+.btn-line-light:hover{background:rgba(255,255,255,.12);border-color:var(--white);}
+.btn-sm{padding:7px 13px;font-size:12.5px;}
+.btn-ghost{background:transparent;color:var(--forest);padding:7px 10px;font-size:13px;}
+.btn-ghost:hover{background:var(--forest-mist);}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;padding:4px 9px;border-radius:20px;font-weight:600;}
+.tag-green{background:var(--forest-mist);color:var(--forest);}
+.tag-amber{background:#FBF0DD;color:var(--amber);}
+.tag-rust{background:var(--rust-mist);color:var(--rust-deep);}
+.tag-red{background:#F6E3DF;color:var(--red);}
+.tag-grey{background:#ECE9DF;color:var(--ink-soft);}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);}
+.hr{height:1px;background:var(--line);border:0;margin:0;}
+.icon{width:18px;height:18px;flex-shrink:0;}
+.proto-badge{
+  position:fixed;bottom:18px;right:18px;z-index:500;
+  background:var(--iron);color:#E9E5D6;font-family:var(--font-mono);font-size:11px;
+  padding:9px 14px;border-radius:30px;display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);letter-spacing:.04em;
+}
+.proto-badge span.dot{width:7px;height:7px;border-radius:50%;background:#E7A33E;animation:pulse 1.8s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+@media (prefers-reduced-motion: reduce){.proto-badge span.dot{animation:none;}}
+
+/* ===== gov utility bar ===== */
+.gov-bar{background:var(--iron);color:#C9C5B6;font-size:12.5px;}
+.gov-bar .wrap{display:flex;justify-content:space-between;align-items:center;height:34px;}
+.gov-bar a{opacity:.85;}
+.gov-bar a:hover{opacity:1;text-decoration:underline;}
+.gov-bar-left{display:flex;gap:18px;}
+.gov-bar-right{display:flex;gap:6px;align-items:center;}
+.util-btn{background:transparent;border:1px solid #45493F;color:#C9C5B6;border-radius:3px;padding:2px 8px;font-size:11.5px;font-family:var(--font-mono);}
+.util-btn:hover{border-color:#7B8170;color:#fff;}
+
+/* ===== public header/nav ===== */
+.site-header{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:200;}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:84px;gap:24px;}
+.brand{display:flex;align-items:center;gap:14px;}
+.brand-mark{width:46px;height:46px;flex-shrink:0;}
+.brand-text .b1{font-family:var(--font-display);font-size:17px;font-weight:600;line-height:1.15;}
+.brand-text .b2{font-size:11.5px;color:var(--ink-soft);letter-spacing:.02em;}
+.main-nav{display:flex;align-items:center;gap:2px;}
+.main-nav button{background:transparent;border:0;padding:10px 14px;font-size:14px;font-weight:600;color:var(--ink-soft);border-radius:var(--radius);}
+.main-nav button:hover{color:var(--forest);background:var(--forest-mist);}
+.main-nav button.active{color:var(--forest);background:var(--forest-mist);}
+.header-actions{display:flex;gap:10px;align-items:center;}
+.mobile-toggle{display:none;background:transparent;border:1.5px solid var(--ink);border-radius:4px;padding:8px;}
+@media (max-width:980px){
+  .main-nav{display:none;}
+  .mobile-toggle{display:flex;}
+  .header-actions .btn span.hide-mobile{display:none;}
+}
+
+/* ===== hero ===== */
+.hero{background:var(--forest);color:var(--white);position:relative;overflow:hidden;}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 2px, transparent 2px 64px);
+  pointer-events:none;
+}
+.hero-inner{padding:78px 0 70px;position:relative;}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center;}
+.hero h1{font-size:46px;line-height:1.08;color:var(--white);max-width:560px;}
+.hero h1 em{font-style:italic;color:#E7A33E;}
+.hero p.lede{color:#D9E3DC;font-size:16.5px;margin-top:18px;max-width:480px;}
+.hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.18);border-radius:6px;overflow:hidden;margin-top:34px;max-width:480px;}
+.hero-stats div{background:var(--forest-deep);padding:18px 20px;}
+.hero-stats .num{font-family:var(--font-mono);font-size:25px;font-weight:600;color:#E7A33E;}
+.hero-stats .lab{font-size:12px;color:#B9C4BD;margin-top:3px;}
+.hero-panel{background:var(--forest-deep);border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:26px;}
+.hero-panel h3{color:var(--white);font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.hero-panel .item{display:flex;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.12);}
+.hero-panel .item:first-of-type{border-top:0;padding-top:0;}
+.hero-panel .item .d{font-family:var(--font-mono);font-size:11px;color:#E7A33E;width:46px;flex-shrink:0;padding-top:2px;}
+.hero-panel .item p{font-size:13.5px;color:#D9E3DC;}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;}.hero h1{font-size:34px;}}
+
+/* ===== content blocks ===== */
+.quick-links{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:-46px;position:relative;z-index:10;}
+.ql-card{background:var(--white);border:1px solid var(--line);border-radius:6px;padding:22px;box-shadow:0 12px 28px rgba(20,20,15,.08);transition:transform .15s ease;}
+.ql-card:hover{transform:translateY(-3px);border-color:var(--rust);}
+.ql-card .icon{color:var(--rust);width:24px;height:24px;margin-bottom:14px;}
+.ql-card h4{font-size:15px;margin-bottom:5px;}
+.ql-card p{font-size:13px;color:var(--ink-soft);}
+@media (max-width:900px){.quick-links{grid-template-columns:1fr 1fr;margin-top:24px;}}
+
+.news-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.news-feature{padding:30px;border-right:1px solid var(--line);}
+.news-feature .tag{margin-bottom:14px;}
+.news-feature h3{font-size:22px;margin-bottom:10px;}
+.news-feature p{color:var(--ink-soft);font-size:14.5px;}
+.news-list .row{display:flex;gap:14px;padding:18px 24px;border-bottom:1px solid var(--line);}
+.news-list .row:last-child{border-bottom:0;}
+.news-list .date{font-family:var(--font-mono);font-size:11px;color:var(--rust-deep);width:54px;flex-shrink:0;padding-top:2px;}
+.news-list h5{font-size:14px;margin-bottom:4px;}
+.news-list p{font-size:12.5px;color:var(--ink-soft);}
+@media (max-width:900px){.news-grid{grid-template-columns:1fr;}.news-feature{border-right:0;border-bottom:1px solid var(--line);}}
+
+.jail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media (max-width:980px){.jail-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:680px){.jail-grid{grid-template-columns:1fr;}}
+.jail-card{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--white);transition:box-shadow .15s ease, transform .15s ease;cursor:pointer;}
+.jail-card:hover{box-shadow:0 10px 24px rgba(20,20,15,.1);transform:translateY(-2px);border-color:var(--forest);}
+.jail-card .swatch{height:90px;background:linear-gradient(135deg,var(--forest),var(--forest-deep));position:relative;}
+.jail-card .swatch .ico{position:absolute;right:14px;bottom:-16px;width:42px;height:42px;background:var(--rust);border-radius:8px;display:flex;align-items:center;justify-content:center;border:3px solid var(--white);}
+.jail-card .swatch .ico svg{width:20px;height:20px;color:var(--white);}
+.jail-card .body{padding:18px 18px 18px;}
+.jail-card .type{font-family:var(--font-mono);font-size:10.5px;color:var(--rust-deep);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+.jail-card h4{font-size:16px;margin-bottom:8px;line-height:1.3;}
+.jail-card .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:11px;margin-top:11px;}
+
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;align-items:center;}
+.filter-row input, .filter-row select{
+  border:1.5px solid var(--line);border-radius:4px;padding:10px 13px;font-family:inherit;font-size:14px;background:var(--white);
+}
+.filter-row input{flex:1;min-width:200px;}
+.search-wrap{position:relative;flex:1;min-width:220px;}
+.search-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--ink-soft);}
+.search-wrap input{padding-left:36px;width:100%;}
+
+.detail-hero{background:var(--forest-deep);color:var(--white);padding:46px 0 40px;}
+.detail-hero .back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#B9C4BD;margin-bottom:18px;}
+.detail-hero h1{color:var(--white);font-size:32px;}
+.detail-hero .meta-row{display:flex;gap:26px;margin-top:18px;flex-wrap:wrap;}
+.detail-hero .meta-row div .l{font-size:11px;color:#9DAA9D;font-family:var(--font-mono);}
+.detail-hero .meta-row div .v{font-size:15px;font-weight:600;margin-top:3px;}
+.detail-grid{display:grid;grid-template-columns:1fr 320px;gap:36px;}
+@media (max-width:900px){.detail-grid{grid-template-columns:1fr;}}
+.officials-list .row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);}
+.officials-list .row:last-child{border-bottom:0;}
+.officials-list .name{font-weight:600;font-size:14.5px;}
+.officials-list .desig{font-size:12.5px;color:var(--ink-soft);}
+.side-card{padding:20px;}
+.side-card h4{font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--rust-deep);margin-bottom:14px;}
+.side-card .line{display:flex;gap:10px;font-size:13.5px;padding:9px 0;border-top:1px solid var(--line);}
+.side-card .line:first-of-type{border-top:0;padding-top:0;}
+.side-card .line svg{width:16px;height:16px;flex-shrink:0;color:var(--rust);margin-top:1px;}
+
+.table{width:100%;border-collapse:collapse;font-size:13.5px;}
+.table th{text-align:left;font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);padding:11px 16px;border-bottom:1.5px solid var(--line);background:var(--paper-deep);}
+.table td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:middle;}
+.table tr:last-child td{border-bottom:0;}
+.table tr:hover td{background:#FBFAF6;}
+.doc-row{display:flex;align-items:center;gap:12px;}
+.doc-ico{width:34px;height:34px;background:var(--forest-mist);border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.doc-ico svg{width:16px;height:16px;color:var(--forest);}
+
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+@media (max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+.gphoto{aspect-ratio:4/3;border-radius:5px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.85);font-family:var(--font-mono);font-size:11px;text-align:center;padding:10px;position:relative;overflow:hidden;}
+.gphoto svg{width:26px;height:26px;margin-bottom:8px;opacity:.85;}
+.gphoto .lbl{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(0,0,0,.55), transparent);padding:24px 10px 9px;font-size:11px;text-align:left;color:#fff;}
+
+.charter-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.charter-item{background:var(--white);padding:20px 22px;}
+.charter-item .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.charter-item h4{font-size:14.5px;}
+@media (max-width:760px){.charter-grid{grid-template-columns:1fr;}}
+
+.captcha-row{display:flex;align-items:center;gap:10px;}
+.captcha-box{font-family:var(--font-mono);background:var(--paper-deep);border:1.5px solid var(--line);border-radius:4px;padding:11px 16px;font-size:16px;letter-spacing:.08em;font-weight:600;user-select:none;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-grid.full{grid-template-columns:1fr;}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+.field input, .field select, .field textarea{
+  width:100%;border:1.5px solid var(--line);border-radius:4px;padding:11px 13px;font-family:inherit;font-size:14px;background:var(--white);
+}
+.field textarea{resize:vertical;min-height:90px;}
+@media (max-width:680px){.form-grid{grid-template-columns:1fr;}}
+
+.map-block{height:230px;border-radius:6px;background:
+  linear-gradient(135deg, #DDE6DE 25%, transparent 25%) -10px 0/ 22px 22px,
+  linear-gradient(225deg, #DDE6DE 25%, transparent 25%) -10px 0/ 22px 22px,
+  linear-gradient(315deg, #DDE6DE 25%, transparent 25%) 0px 0/ 22px 22px,
+  linear-gradient(45deg, #DDE6DE 25%, var(--forest-mist) 25%) 0px 0/ 22px 22px;
+  position:relative;border:1px solid var(--line);
+}
+.map-pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);}
+.map-pin svg{width:34px;height:34px;color:var(--rust);filter:drop-shadow(0 4px 6px rgba(0,0,0,.25));}
+.map-tag{position:absolute;bottom:14px;left:14px;background:var(--white);padding:8px 12px;border-radius:4px;font-size:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);}
+
+footer.site-footer{background:var(--iron);color:#B7B3A4;padding:54px 0 26px;margin-top:30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;}
+.footer-grid h5{color:#E9E5D6;font-size:13px;font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;}
+.footer-grid li{margin-bottom:9px;font-size:13.5px;}
+.footer-grid li a:hover{color:#fff;text-decoration:underline;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #3A3E33;margin-top:40px;padding-top:22px;font-size:12px;flex-wrap:wrap;gap:10px;}
+.social-row{display:flex;gap:10px;}
+.social-row a{width:30px;height:30px;border:1px solid #45493F;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.social-row a:hover{border-color:#E7A33E;color:#E7A33E;}
+@media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+/* ===== LOGIN SCREEN ===== */
+.login-shell{min-height:100vh;display:flex;}
+.login-side{flex:1.1;background:var(--forest-deep);color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.login-side::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 2px, transparent 2px 56px);}
+.login-side .top{position:relative;}
+.login-side h2{color:#fff;font-size:30px;max-width:380px;margin-top:26px;}
+.login-side p{color:#B9C4BD;margin-top:14px;max-width:360px;font-size:14.5px;}
+.login-side .feat{display:flex;gap:12px;margin-top:16px;align-items:flex-start;}
+.login-side .feat svg{width:18px;height:18px;color:#E7A33E;margin-top:2px;flex-shrink:0;}
+.login-side .feat p{margin:0;color:#D9E3DC;font-size:13.5px;}
+.login-main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;background:var(--paper);}
+.login-box{width:100%;max-width:380px;}
+.role-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 26px;}
+.role-tab{border:1.5px solid var(--line);border-radius:6px;padding:14px;text-align:left;background:var(--white);}
+.role-tab.active{border-color:var(--forest);background:var(--forest-mist);}
+.role-tab .l{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;}
+.role-tab .n{font-weight:700;font-size:14px;margin-top:3px;}
+.demo-note{background:var(--rust-mist);border:1px solid #E7C5AC;border-radius:5px;padding:12px 14px;font-size:12.5px;color:var(--rust-deep);margin-top:18px;display:flex;gap:10px;}
+@media (max-width:880px){.login-side{display:none;}}
+
+/* ===== PORTAL SHELL ===== */
+.portal{display:flex;min-height:100vh;background:var(--paper);}
+.sidebar{width:248px;background:var(--iron);color:#C9C5B6;flex-shrink:0;display:flex;flex-direction:column;}
+.sb-brand{display:flex;align-items:center;gap:11px;padding:22px 20px;border-bottom:1px solid #34382E;}
+.sb-brand .mark{width:34px;height:34px;flex-shrink:0;}
+.sb-brand b{color:#fff;font-size:13.5px;display:block;line-height:1.2;}
+.sb-brand small{color:#8C9180;font-size:10.5px;}
+.sb-section{padding:16px 14px 4px;font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#6F7464;}
+.sb-link{display:flex;align-items:center;gap:11px;padding:10px 14px;margin:1px 8px;border-radius:5px;font-size:13.5px;font-weight:500;color:#C9C5B6;}
+.sb-link svg{width:17px;height:17px;flex-shrink:0;opacity:.8;}
+.sb-link:hover{background:#2C3026;color:#fff;}
+.sb-link.active{background:var(--forest);color:#fff;}
+.sb-link.active svg{opacity:1;}
+.sb-badge{margin-left:auto;background:var(--rust);color:#fff;font-size:10px;font-family:var(--font-mono);padding:1px 6px;border-radius:10px;}
+.sb-foot{margin-top:auto;padding:16px;border-top:1px solid #34382E;display:flex;align-items:center;gap:10px;}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--rust);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
+.sb-foot .who{flex:1;min-width:0;}
+.sb-foot .who b{display:block;font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sb-foot .who span{font-size:11px;color:#8C9180;}
+.sb-foot button{background:transparent;border:1px solid #45493F;color:#C9C5B6;border-radius:4px;padding:6px;}
+.sb-foot button:hover{border-color:var(--rust);color:#fff;}
+
+.portal-main{flex:1;min-width:0;}
+.topbar{height:64px;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;}
+.topbar h2{font-size:18px;}
+.topbar-sub{font-size:12px;color:var(--ink-soft);margin-top:2px;font-family:var(--font-mono);}
+.topbar-right{display:flex;align-items:center;gap:14px;}
+.tb-icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;position:relative;background:var(--white);}
+.tb-icon-btn svg{width:17px;height:17px;color:var(--ink-soft);}
+.tb-icon-btn .dot{position:absolute;top:6px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--rust);}
+.portal-content{padding:28px;max-width:1320px;}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+@media (max-width:1100px){.kpi-grid{grid-template-columns:1fr 1fr;}}
+.kpi{padding:20px;}
+.kpi .top{display:flex;justify-content:space-between;align-items:flex-start;}
+.kpi .ic{width:36px;height:36px;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.kpi .ic svg{width:18px;height:18px;}
+.kpi .num{font-family:var(--font-mono);font-size:27px;font-weight:600;margin-top:14px;}
+.kpi .lab{font-size:12.5px;color:var(--ink-soft);margin-top:2px;}
+.kpi .delta{font-size:11.5px;font-weight:600;margin-top:8px;display:inline-block;}
+
+.panel-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start;}
+@media (max-width:1000px){.panel-grid{grid-template-columns:1fr;}}
+.panel{overflow:hidden;}
+.panel-head{display:flex;justify-content:space-between;align-items:center;padding:17px 20px;border-bottom:1px solid var(--line);}
+.panel-head h3{font-size:14.5px;}
+.alert-row{display:flex;gap:12px;padding:13px 20px;border-bottom:1px solid var(--line);}
+.alert-row:last-child{border-bottom:0;}
+.alert-dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0;}
+.alert-row p{font-size:13.5px;}
+.alert-row .t{font-size:11px;color:var(--ink-soft);margin-top:2px;font-family:var(--font-mono);}
+
+.bw-progress{height:6px;background:var(--paper-deep);border-radius:6px;overflow:hidden;margin-top:7px;}
+.bw-progress > div{height:100%;background:var(--forest);}
+
+.action-card{display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--white);}
+.action-card .ic{width:38px;height:38px;border-radius:7px;background:var(--forest-mist);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.action-card .ic svg{width:18px;height:18px;color:var(--forest);}
+.action-card h5{font-size:13.5px;}
+.action-card p{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media (max-width:600px){.action-grid{grid-template-columns:1fr;}}
+
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:14px;flex-wrap:wrap;}
+.tabbar{display:flex;gap:4px;background:var(--paper-deep);padding:4px;border-radius:6px;width:fit-content;margin-bottom:18px;}
+.tabbar button{background:transparent;border:0;padding:8px 16px;font-size:13px;font-weight:600;border-radius:4px;color:var(--ink-soft);}
+.tabbar button.active{background:var(--white);color:var(--forest);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+
+.empty-state{padding:60px 30px;text-align:center;color:var(--ink-soft);}
+.empty-state svg{width:36px;height:36px;margin:0 auto 14px;opacity:.4;}
+
+textarea.notes{width:100%;border:1.5px solid var(--line);border-radius:4px;padding:9px 11px;font-family:inherit;font-size:13px;}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--iron);color:#fff;padding:13px 22px;border-radius:6px;font-size:13.5px;display:flex;align-items:center;gap:10px;z-index:600;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+.toast svg{width:16px;height:16px;color:#7CC78A;}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<div id="app"></div>
+<div class="proto-badge"><span class="dot"></span> PROTOTYPE — illustrative content only</div>
+
+<script>
+/* =========================================================
+   DATA
+========================================================= */
+const T = {
+  en:{nav_home:"Home", nav_about:"About Us", nav_jails:"Jails Directory", nav_acts:"Acts & Rules", nav_tenders:"Tenders", nav_gallery:"Gallery", nav_charter:"Citizen's Charter", nav_contact:"Contact",
+      hero_eyebrow:"Government of Jharkhand · Department of Home, Jail & Disaster Management",
+      hero_title:"Inspectorate of Prisons & <em>Correctional Services</em>",
+      hero_lede:"A single digital window into Jharkhand's prison administration — institution profiles, public services, rules and reform initiatives across all 13 jails of the state.",
+      login_btn:"Portal Login"},
+  hi:{nav_home:"मुखपृष्ठ", nav_about:"हमारे बारे में", nav_jails:"कारागार निर्देशिका", nav_acts:"अधिनियम एवं नियम", nav_tenders:"निविदाएं", nav_gallery:"गैलरी", nav_charter:"नागरिक चार्टर", nav_contact:"संपर्क करें",
+      hero_eyebrow:"झारखंड सरकार · गृह, कारा एवं आपदा प्रबंधन विभाग",
+      hero_title:"कारा महानिरीक्षक एवं <em>सुधारात्मक सेवाएं</em>",
+      hero_lede:"झारखंड के कारागार प्रशासन की संपूर्ण जानकारी — सभी 13 कारागारों की प्रोफ़ाइल, सार्वजनिक सेवाएं, नियम एवं सुधार पहलें एक ही स्थान पर।",
+      login_btn:"पोर्टल लॉगिन"}
+};
+
+const JAILS = [
+ {id:"j1", name:"Birsa Munda Central Jail", type:"Central Jail", district:"Ranchi", est:1968, capacity:1450, occ:1820, supt:"Shri R. K. Mahto", phone:"0651-2233012", email:"cj.ranchi@prisons.jharkhand.gov.in", updated:"2 days ago"},
+ {id:"j2", name:"Hazaribagh Central Jail", type:"Central Jail", district:"Hazaribagh", est:1782, capacity:980, occ:1105, supt:"Smt. P. Devi", phone:"06546-222145", email:"cj.hazaribagh@prisons.jharkhand.gov.in", updated:"5 days ago"},
+ {id:"j3", name:"Dumka Central Jail", type:"Central Jail", district:"Dumka", est:1954, capacity:760, occ:690, supt:"Shri S. N. Soren", phone:"06434-222331", email:"cj.dumka@prisons.jharkhand.gov.in", updated:"1 week ago"},
+ {id:"j4", name:"Ghaghidih Central Jail", type:"Central Jail", district:"East Singhbhum", est:1949, capacity:1120, occ:1340, supt:"Shri M. Toppo", phone:"0657-2431098", email:"cj.jamshedpur@prisons.jharkhand.gov.in", updated:"3 days ago"},
+ {id:"j5", name:"Palamu Divisional Jail", type:"Divisional Jail", district:"Palamu", est:1961, capacity:640, occ:705, supt:"Shri A. K. Verma", phone:"06562-222456", email:"dj.daltonganj@prisons.jharkhand.gov.in", updated:"4 days ago"},
+ {id:"j6", name:"Dhanbad District Jail", type:"District Jail", district:"Dhanbad", est:1972, capacity:880, occ:960, supt:"Shri V. P. Singh", phone:"0326-2301122", email:"dj.dhanbad@prisons.jharkhand.gov.in", updated:"today"},
+ {id:"j7", name:"Bokaro District Jail", type:"District Jail", district:"Bokaro", est:1991, capacity:520, occ:480, supt:"Smt. R. Kujur", phone:"06542-233019", email:"dj.bokaro@prisons.jharkhand.gov.in", updated:"6 days ago"},
+ {id:"j8", name:"Giridih District Jail", type:"District Jail", district:"Giridih", est:1958, capacity:400, occ:455, supt:"Shri D. N. Mahto", phone:"06532-222098", email:"dj.giridih@prisons.jharkhand.gov.in", updated:"2 weeks ago"},
+ {id:"j9", name:"Chaibasa Sub Jail", type:"Sub Jail", district:"West Singhbhum", est:1965, capacity:310, occ:295, supt:"Shri K. C. Hansda", phone:"06582-256011", email:"sj.chaibasa@prisons.jharkhand.gov.in", updated:"3 days ago"},
+ {id:"j10", name:"Deoghar Sub Jail", type:"Sub Jail", district:"Deoghar", est:1970, capacity:280, occ:260, supt:"Shri B. P. Yadav", phone:"06432-222567", email:"sj.deoghar@prisons.jharkhand.gov.in", updated:"1 day ago"},
+ {id:"j11", name:"Garhwa Sub Jail", type:"Sub Jail", district:"Garhwa", est:1976, capacity:230, occ:198, supt:"Smt. N. Tirkey", phone:"06564-233211", email:"sj.garhwa@prisons.jharkhand.gov.in", updated:"5 days ago"},
+ {id:"j12", name:"Gumla Sub Jail", type:"Sub Jail", district:"Gumla", est:1983, capacity:210, occ:175, supt:"Shri H. Oraon", phone:"06524-222456", email:"sj.gumla@prisons.jharkhand.gov.in", updated:"1 week ago"},
+ {id:"j13", name:"Open Air Jail, Hazaribagh", type:"Open Jail", district:"Hazaribagh", est:1996, capacity:120, occ:96, supt:"Shri J. Lakra", phone:"06546-228870", email:"oj.hazaribagh@prisons.jharkhand.gov.in", updated:"4 days ago"}
+];
+
+const NEWS = [
+ {tag:"Health Initiative", date:"12 Jun", title:"TB-Mukt Karagar health screening camps conclude across all 13 jails", body:"Joint screening drive with the State Health Department recorded over 4,200 inmate consultations under the TB-Free Jharkhand campaign."},
+ {tag:"Reform", date:"08 Jun", title:"Vocational tailoring & carpentry units inaugurated at Birsa Munda Central Jail", body:"New skill-development workshops will train 80 inmates per cycle in partnership with the Jharkhand Skill Development Mission."},
+ {tag:"Legal Aid", date:"02 Jun", title:"District Legal Services Authority camps held at Dumka and Palamu", body:"Free legal aid and bail-eligibility review camps assisted 156 undertrial prisoners this month."},
+ {tag:"Inspection", date:"27 May", title:"IG Prisons conducts surprise inspection of Dhanbad District Jail", body:"Review focused on overcrowding, sanitation and grievance redressal turnaround time."},
+ {tag:"Yoga & Wellness", date:"21 May", title:"International Yoga Day observed across all correctional facilities", body:"Wellness sessions were conducted for staff and inmates under the mental health & rehabilitation programme."}
+];
+
+const ACTS = [
+ {type:"Act", title:"The Prisons Act, 1894", date:"Central Legislation", size:"412 KB"},
+ {type:"Act", title:"The Prisoners Act, 1900", date:"Central Legislation", size:"268 KB"},
+ {type:"Act", title:"Transfer of Prisoners Act, 1950", date:"Central Legislation", size:"190 KB"},
+ {type:"Manual", title:"Model Prison Manual, 2016", date:"Ministry of Home Affairs", size:"6.4 MB"},
+ {type:"Rule", title:"Jharkhand Prison Rules, 2022 (Consolidated)", date:"State Notification", size:"3.1 MB"},
+ {type:"SOP", title:"SOP — Mulakat (Visitation) Scheduling", date:"Revised Jan 2026", size:"540 KB"},
+ {type:"SOP", title:"SOP — Parole & Furlough Applications", date:"Revised Mar 2025", size:"480 KB"},
+ {type:"Circular", title:"Circular — Open Jail Eligibility Criteria", date:"Feb 2026", size:"310 KB"}
+];
+
+const TENDERS = [
+ {ref:"JAPIT/Prison/Tier-3/2026/01", title:"Design, Development & Maintenance of Inspectorate of Prison Portal", closing:"23 Jun 2026, 3:00 PM", status:"Open"},
+ {ref:"IGP/JHK/2026/Catering-04", title:"Annual rate contract for inmate catering services — Ranchi Division", closing:"30 Jun 2026, 5:00 PM", status:"Open"},
+ {ref:"IGP/JHK/2026/Medical-11", title:"Empanelment of medical service providers for jail dispensaries", closing:"05 Jul 2026, 5:00 PM", status:"Open"},
+ {ref:"IGP/JHK/2025/CCTV-19", title:"Upgradation of perimeter CCTV surveillance — 6 facilities", closing:"Closed", status:"Closed"}
+];
+
+const GALLERY = [
+ {c1:"#1B4332",c2:"#0F2A20", l:"Vocational training workshop — Ranchi"},
+ {c1:"#B5572B",c2:"#8F441F", l:"TB screening camp — Dumka Central Jail"},
+ {c1:"#2F6F62",c2:"#1B4332", l:"Legal aid camp — Palamu Divisional Jail"},
+ {c1:"#B8841F",c2:"#8F441F", l:"Independence Day observance — PHQ"},
+ {c1:"#21241F",c2:"#2E322B", l:"Inspection visit — Dhanbad District Jail"},
+ {c1:"#1B4332",c2:"#2F6F62", l:"Yoga Day session — Hazaribagh"},
+ {c1:"#8F441F",c2:"#B5572B", l:"New barrack inauguration — Bokaro"},
+ {c1:"#2E322B",c2:"#1B4332", l:"Open Jail farming initiative"}
+];
+
+const HIERARCHY = [
+ {role:"Director General (Prisons)", name:"Shri A. K. Pandey, IPS", level:0},
+ {role:"Inspector General of Prisons", name:"Shri R. S. Bhagat, IPS", level:1},
+ {role:"Deputy Inspector General (Admin)", name:"Smt. M. Lakra", level:2},
+ {role:"Deputy Inspector General (Reforms)", name:"Shri T. N. Sahay", level:2},
+ {role:"Superintendents (13 facilities)", name:"District-level charge", level:3},
+ {role:"Jailors / Assistant Jailors", name:"Facility-level staff", level:4}
+];
+
+const CONTENT_QUEUE = [
+ {id:"c1", jail:"Birsa Munda Central Jail", type:"Circular", title:"Revised mulakat timing — June 2026", by:"Jail Editor, Ranchi", date:"19 Jun", status:"Pending"},
+ {id:"c2", jail:"Dumka Central Jail", type:"Gallery", title:"Legal aid camp photographs (8 images)", by:"Jail Editor, Dumka", date:"18 Jun", status:"Pending"},
+ {id:"c3", jail:"Dhanbad District Jail", type:"Official Update", title:"New Jailor appointment — Shri V. P. Singh", by:"Jail Editor, Dhanbad", date:"17 Jun", status:"Pending"},
+ {id:"c4", jail:"Hazaribagh Central Jail", type:"Event", title:"Yoga Day observance report", by:"Jail Editor, Hazaribagh", date:"16 Jun", status:"Approved"},
+ {id:"c5", jail:"Gumla Sub Jail", type:"Circular", title:"Visitor ID verification notice", by:"Jail Editor, Gumla", date:"15 Jun", status:"Rejected"},
+ {id:"c6", jail:"Chaibasa Sub Jail", type:"Gallery", title:"Carpentry workshop photographs", by:"Jail Editor, Chaibasa", date:"14 Jun", status:"Pending"},
+ {id:"c7", jail:"Palamu Divisional Jail", type:"Official Update", title:"Superintendent contact number update", by:"Jail Editor, Palamu", date:"13 Jun", status:"Approved"}
+];
+
+const GRIEVANCES = [
+ {id:"g1", name:"Suresh Mahato", jail:"Birsa Munda Central Jail", cat:"Visitation Issue", date:"19 Jun", status:"Open", priority:"High"},
+ {id:"g2", name:"Anita Kumari", jail:"Dumka Central Jail", cat:"Legal Aid Request", date:"18 Jun", status:"In Progress", priority:"Medium"},
+ {id:"g3", name:"Rajesh Toppo", jail:"Dhanbad District Jail", cat:"Website Issue", date:"17 Jun", status:"Resolved", priority:"Low"},
+ {id:"g4", name:"Vikash Singh", jail:"Hazaribagh Central Jail", cat:"Parole Status Query", date:"16 Jun", status:"Open", priority:"Medium"},
+ {id:"g5", name:"Pooja Devi", jail:"Bokaro District Jail", cat:"Corruption Complaint", date:"15 Jun", status:"Escalated", priority:"High"}
+];
+
+const AUDIT = [
+ {time:"19 Jun, 11:42", user:"admin@phq.prisons.jharkhand.gov.in", action:"Approved content", module:"CMS — Birsa Munda Central Jail", ip:"10.21.4.12"},
+ {time:"19 Jun, 10:15", user:"editor.dumka@prisons.jharkhand.gov.in", action:"Submitted gallery upload", module:"CMS — Dumka Central Jail", ip:"10.21.9.04"},
+ {time:"19 Jun, 09:50", user:"admin@phq.prisons.jharkhand.gov.in", action:"Created user account", module:"User Management", ip:"10.21.4.12"},
+ {time:"18 Jun, 17:22", user:"editor.dhanbad@prisons.jharkhand.gov.in", action:"Login", module:"Authentication", ip:"10.21.7.18"},
+ {time:"18 Jun, 16:08", user:"admin@phq.prisons.jharkhand.gov.in", action:"Rejected content", module:"CMS — Gumla Sub Jail", ip:"10.21.4.12"},
+ {time:"18 Jun, 14:30", user:"editor.hazaribagh@prisons.jharkhand.gov.in", action:"Password reset", module:"Authentication", ip:"10.21.3.41"},
+ {time:"17 Jun, 12:05", user:"admin@phq.prisons.jharkhand.gov.in", action:"Resolved grievance #g3", module:"Grievance Management", ip:"10.21.4.12"}
+];
+
+const USERS = [
+ {name:"PHQ Administrator", role:"PHQ Admin", jail:"Headquarters", status:"Active", login:"Today, 09:12"},
+ {name:"Jail Editor — Ranchi", role:"Jail Editor", jail:"Birsa Munda Central Jail", status:"Active", login:"Today, 08:40"},
+ {name:"Jail Editor — Dumka", role:"Jail Editor", jail:"Dumka Central Jail", status:"Active", login:"Yesterday, 16:02"},
+ {name:"Jail Editor — Dhanbad", role:"Jail Editor", jail:"Dhanbad District Jail", status:"Active", login:"Yesterday, 11:18"},
+ {name:"Jail Editor — Hazaribagh", role:"Jail Editor", jail:"Hazaribagh Central Jail", status:"Inactive", login:"6 days ago"},
+ {name:"Jail Editor — Gumla", role:"Jail Editor", jail:"Gumla Sub Jail", status:"Pending Activation", login:"Never"}
+];
+
+/* =========================================================
+   ICONS
+========================================================= */
+const ICN = {
+  search:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px;"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+  building:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"/><line x1="9" y1="8" x2="9" y2="8"/><line x1="15" y1="8" x2="15" y2="8"/><line x1="9" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg>',
+  scale:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M5 7l-3 7a4 4 0 0 0 6 0z"/><path d="M19 7l-3 7a4 4 0 0 0 6 0z"/><path d="M5 7h14"/><path d="M8 21h8"/></svg>',
+  doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  image:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  flag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>',
+  log:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  mail:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+  phone:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  pin:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+  pinL:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>',
+  clock:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  arrowleft:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:15px;height:15px;"><polyline points="9 18 15 12 9 6"/></svg>',
+  alert:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  award:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+  settings:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+  logout:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
+  upload:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'
+};
+function emblem(size){
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 48 48" fill="none">'+
+   '<circle cx="24" cy="24" r="22" stroke="#1B4332" stroke-width="2.4"/>'+
+   '<circle cx="24" cy="24" r="17" stroke="#B5572B" stroke-width="1"/>'+
+   '<path d="M24 12c-4 4-6 8-6 12s2 8 6 12c4-4 6-8 6-12s-2-8-6-12z" fill="#1B4332"/>'+
+   '<path d="M14 30c3-1 6-1 10 0M24 30c4-1 7-1 10 0" stroke="#B5572B" stroke-width="1.4" stroke-linecap="round" fill="none"/>'+
+   '</svg>';
+}
+function emblemLight(size){
+  return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 48 48" fill="none">'+
+   '<circle cx="24" cy="24" r="22" stroke="#E7A33E" stroke-width="2.2"/>'+
+   '<circle cx="24" cy="24" r="17" stroke="rgba(255,255,255,.45)" stroke-width="1"/>'+
+   '<path d="M24 12c-4 4-6 8-6 12s2 8 6 12c4-4 6-8 6-12s-2-8-6-12z" fill="#E7A33E"/>'+
+   '</svg>';
+}
+
+/* =========================================================
+   STATE
+========================================================= */
+let S = {
+  mode:"public",        // public | login | portal
+  screen:"home",
+  role:null,             // phq_admin | jail_officer
+  lang:"en",
+  jailId:null,
+  jailFilter:"", jailType:"All",
+  contentTab:"All",
+  fontStep:1,
+  loginTab:"phq_admin",
+  jailEditorTab:"officials"
+};
+function t(k){ return T[S.lang][k]; }
+function nav(screen, jailId){ S.screen=screen; if(jailId) S.jailId=jailId; window.scrollTo({top:0,behavior:"instant"}); render(); }
+function toast(msg){
+  const el=document.createElement("div"); el.className="toast";
+  el.innerHTML=ICN.check+"<span>"+msg+"</span>";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),2400);
+}
+
+/* =========================================================
+   PUBLIC SHELL
+========================================================= */
+function publicHeader(){
+  const items=[["home","nav_home"],["about","nav_about"],["jails","nav_jails"],["acts","nav_acts"],["tenders","nav_tenders"],["gallery","nav_gallery"],["charter","nav_charter"],["contact","nav_contact"]];
+  return `
+  <div class="gov-bar">
+    <div class="wrap">
+      <div class="gov-bar-left">
+        <span>भारत सरकार · Government of Jharkhand</span>
+        <a href="#" onclick="return false;">RTI</a>
+        <a href="#" onclick="return false;">Sitemap</a>
+      </div>
+      <div class="gov-bar-right">
+        <button class="util-btn" onclick="changeFontSize(-1)">A-</button>
+        <button class="util-btn" onclick="changeFontSize(0)">A</button>
+        <button class="util-btn" onclick="changeFontSize(1)">A+</button>
+        <button class="util-btn" onclick="toggleLang()">${S.lang==='en'?'हिंदी':'English'}</button>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand" style="cursor:pointer" onclick="nav('home')">
+        <div class="brand-mark">${emblem(46)}</div>
+        <div class="brand-text">
+          <div class="b1">Inspectorate of Prisons</div>
+          <div class="b2">&amp; Correctional Services, Govt. of Jharkhand</div>
+        </div>
+      </div>
+      <nav class="main-nav">
+        ${items.map(([id,key])=>`<button class="${S.screen===id?'active':''}" onclick="nav('${id}')">${t(key)}</button>`).join("")}
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-sm" onclick="nav('login')">${t('login_btn')}<span>${ICN.chev}</span></button>
+        <button class="mobile-toggle" aria-label="Menu">${ICN.menu}</button>
+      </div>
+    </div>
+  </header>`;
+}
+function publicFooter(){
+  return `
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+            ${emblemLight(32)}
+            <div>
+              <div style="color:#fff;font-family:var(--font-display);font-size:14.5px;">Inspectorate of Prisons</div>
+              <div style="font-size:11px;color:#8C9180;">&amp; Correctional Services, GoJ</div>
+            </div>
+          </div>
+          <p style="font-size:13px;line-height:1.6;max-width:280px;">Engineers Hostel #1, Near Golchakkar, Dhurwa, Ranchi – 834004, Jharkhand</p>
+          <div class="social-row" style="margin-top:16px;">
+            <a href="#" onclick="return false;" aria-label="Facebook">f</a>
+            <a href="#" onclick="return false;" aria-label="Twitter">X</a>
+            <a href="#" onclick="return false;" aria-label="YouTube">▶</a>
+          </div>
+        </div>
+        <div>
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="#" onclick="nav('about');return false;">About IG Prisons</a></li>
+            <li><a href="#" onclick="nav('jails');return false;">All 13 Jails</a></li>
+            <li><a href="#" onclick="nav('charter');return false;">Citizen's Charter</a></li>
+            <li><a href="#" onclick="nav('charter');return false;">Download Forms</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="#" onclick="nav('acts');return false;">Acts &amp; Rules</a></li>
+            <li><a href="#" onclick="nav('tenders');return false;">Tenders</a></li>
+            <li><a href="#" onclick="nav('gallery');return false;">Photo Gallery</a></li>
+            <li><a href="https://prisons.jharkhand.gov.in" onclick="return false;">Legacy Site Archive</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Reference Links</h5>
+          <ul>
+            <li><a href="#" onclick="return false;">National Prisons Portal</a></li>
+            <li><a href="#" onclick="return false;">eTenders Jharkhand</a></li>
+            <li><a href="#" onclick="return false;">Jharkhand State Data Center</a></li>
+            <li><a href="#" onclick="nav('login');return false;">Department Portal Login</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Inspectorate of Prisons &amp; Correctional Services, GoJ. Built &amp; maintained by JAP-IT.</span>
+        <span>GIGW · WCAG 2.0 AA · Last reviewed 19 Jun 2026</span>
+      </div>
+    </div>
+  </footer>`;
+}
+function renderPublic(content){
+  return `${publicHeader()}<main id="main">${content}</main>${publicFooter()}`;
+}
+
+/* =========================================================
+   PUBLIC SCREENS
+========================================================= */
+function screenHome(){
+  const totalCap=JAILS.reduce((a,j)=>a+j.capacity,0), totalOcc=JAILS.reduce((a,j)=>a+j.occ,0);
+  return `
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow" style="color:#E7A33E;"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>${t('hero_eyebrow')}</div>
+          <h1>${t('hero_title')}</h1>
+          <p class="lede">${t('hero_lede')}</p>
+          <div class="hero-cta">
+            <button class="btn btn-rust" onclick="nav('jails')">Browse Jails Directory ${ICN.chev}</button>
+            <button class="btn btn-line-light" onclick="nav('charter')">Citizen's Charter</button>
+          </div>
+          <div class="hero-stats">
+            <div><div class="num">13</div><div class="lab">Correctional facilities statewide</div></div>
+            <div><div class="num">${totalOcc.toLocaleString()}</div><div class="lab">Inmates under custody</div></div>
+            <div><div class="num">24</div><div class="lab">Districts with legal aid access</div></div>
+            <div><div class="num">99.4%</div><div class="lab">Portal uptime, last 90 days</div></div>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <h3>${ICN.flag} Upcoming &amp; Recent</h3>
+          ${NEWS.slice(0,3).map(n=>`<div class="item"><div class="d">${n.date}</div><p>${n.title}</p></div>`).join("")}
+          <button class="btn btn-line-light btn-sm" style="margin-top:16px;width:100%;justify-content:center;" onclick="nav('contact')">View all notices</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="quick-links">
+      <div class="ql-card" onclick="nav('jails')">${ICN.building}<h4>Find a Jail</h4><p>Search by district, type or facility name across the state.</p></div>
+      <div class="ql-card" onclick="nav('charter')">${ICN.doc}<h4>Mulakat &amp; Forms</h4><p>Download visitation, parole and legal aid application forms.</p></div>
+      <div class="ql-card" onclick="nav('acts')">${ICN.scale}<h4>Acts &amp; Rules</h4><p>Statutory references governing prison administration.</p></div>
+      <div class="ql-card" onclick="nav('contact')">${ICN.alert}<h4>File a Grievance</h4><p>Raise a concern regarding any jail or service directly.</p></div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>NEWS &amp; INITIATIVES</div><h2>Latest from the Prison Headquarters</h2></div>
+        <button class="btn btn-line btn-sm" onclick="nav('contact')">View archive</button>
+      </div>
+      <div class="news-grid">
+        <div class="news-feature">
+          <div class="tag tag-rust">${NEWS[0].tag}</div>
+          <h3>${NEWS[0].title}</h3>
+          <p>${NEWS[0].body}</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:18px;color:var(--ink-soft);font-size:12.5px;font-family:var(--font-mono);">${ICN.clock} Published ${NEWS[0].date} 2026</div>
+        </div>
+        <div class="news-list">
+          ${NEWS.slice(1).map(n=>`<div class="row"><div class="date">${n.date}</div><div><h5>${n.title}</h5><p>${n.body.slice(0,70)}…</p></div></div>`).join("")}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--forest-mist);">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>OUR FACILITIES</div><h2>Jails across Jharkhand</h2><p class="section-sub">Every facility maintains its own profile page, officials list, gallery and circulars — managed locally and approved centrally.</p></div>
+        <button class="btn btn-primary btn-sm" onclick="nav('jails')">View full directory ${ICN.chev}</button>
+      </div>
+      <div class="jail-grid">
+        ${JAILS.slice(0,3).map(jailCardHTML).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+function jailCardHTML(j){
+  return `<div class="jail-card" onclick="nav('jail-detail','${j.id}')">
+    <div class="swatch"><div class="ico">${ICN.building}</div></div>
+    <div class="body">
+      <div class="type">${j.type} · ${j.district}</div>
+      <h4>${j.name}</h4>
+      <div class="meta"><span>Est. ${j.est}</span><span>Cap. ${j.capacity}</span></div>
+    </div>
+  </div>`;
+}
+
+function screenAbout(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>About the Inspectorate</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">The apex correctional administration body of Jharkhand, responsible for custodial management, inmate welfare, rehabilitation and reform across all districts of the state.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap detail-grid">
+      <div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>VISION &amp; MISSION</div>
+        <h2 style="margin-bottom:18px;">Custody with dignity, reform through opportunity</h2>
+        <p style="color:var(--ink-soft);font-size:15px;line-height:1.7;">To administer a secure, humane and rehabilitative correctional system across Jharkhand — one that upholds the rights of every individual in custody while equipping them with the skills, health support and legal access needed to reintegrate into society.</p>
+        <div class="hr" style="margin:32px 0;"></div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>ORGANISATIONAL HIERARCHY</div>
+        <h3 style="margin-bottom:18px;">Chain of command</h3>
+        <div class="card officials-list" style="padding:6px 22px;">
+          ${HIERARCHY.map(h=>`<div class="row" style="padding-left:${h.level*18}px;"><div><div class="name">${h.role}</div><div class="desig">${h.name}</div></div>${h.level<=1?'<span class="tag tag-green">PHQ</span>':''}</div>`).join("")}
+        </div>
+      </div>
+      <div>
+        <div class="card side-card" style="margin-bottom:18px;">
+          <h4>Goals &amp; Objectives</h4>
+          <div class="line">${ICN.check}<span>Reduce overcrowding through transfer &amp; open-jail eligibility programmes</span></div>
+          <div class="line">${ICN.check}<span>Universal access to legal aid for undertrial prisoners</span></div>
+          <div class="line">${ICN.check}<span>Skill development &amp; vocational training in every facility</span></div>
+          <div class="line">${ICN.check}<span>Digitised, transparent grievance redressal</span></div>
+        </div>
+        <div class="card side-card">
+          <h4>Jail Training Institute</h4>
+          <p style="font-size:13.5px;color:var(--ink-soft);line-height:1.6;">The state's correctional staff training centre conducts induction and refresher programmes for jail staff on custodial law, inmate psychology and emergency response, based at Ranchi.</p>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function screenJails(){
+  const types=["All","Central Jail","Divisional Jail","District Jail","Sub Jail","Open Jail"];
+  let list=JAILS.filter(j=>{
+    const m1 = (j.name+j.district).toLowerCase().includes(S.jailFilter.toLowerCase());
+    const m2 = S.jailType==="All" || j.type===S.jailType;
+    return m1 && m2;
+  });
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Jails Directory</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">13 correctional facilities across Jharkhand — each maintains its own subdomain page, managed by local staff and approved by Prison Headquarters.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="filter-row">
+        <div class="search-wrap">${ICN.search}<input type="text" placeholder="Search by jail name or district…" value="${S.jailFilter}" oninput="filterJails(this.value, S.jailType)"></div>
+        <select onchange="filterJails(S.jailFilter, this.value)">
+          ${types.map(ty=>`<option ${S.jailType===ty?'selected':''}>${ty}</option>`).join("")}
+        </select>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:18px;">${list.length} of ${JAILS.length} facilities</p>
+      <div class="jail-grid">
+        ${list.length ? list.map(jailCardHTML).join("") : `<div class="empty-state" style="grid-column:1/-1;">${ICN.search}<p>No jails match your search.</p></div>`}
+      </div>
+    </div>
+  </section>`;
+}
+function filterJails(q, ty){ S.jailFilter=q; S.jailType=ty; render(); }
+
+function screenJailDetail(){
+  const j = JAILS.find(x=>x.id===S.jailId) || JAILS[0];
+  const officials=[
+    {n:j.supt, d:"Superintendent"},
+    {n:"Shri " + j.name.split(" ")[0].slice(0,1)+". Kumar", d:"Deputy Jailor"},
+    {n:"Smt. S. Kerketta", d:"Welfare Officer"},
+    {n:"Dr. P. Nag", d:"Medical Officer"}
+  ];
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <a class="back" href="#" onclick="nav('jails');return false;">${ICN.arrowleft} Back to directory</a>
+      <div class="eyebrow" style="color:#E7A33E;">${j.type} · ${j.district} District</div>
+      <h1>${j.name}</h1>
+      <div class="meta-row">
+        <div><div class="l">ESTABLISHED</div><div class="v">${j.est}</div></div>
+        <div><div class="l">CAPACITY</div><div class="v">${j.capacity}</div></div>
+        <div><div class="l">CURRENT OCCUPANCY</div><div class="v">${j.occ}</div></div>
+        <div><div class="l">LAST UPDATED</div><div class="v">${j.updated}</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap detail-grid">
+      <div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>OVERVIEW</div>
+        <h3 style="margin-bottom:14px;">About this facility</h3>
+        <p style="color:var(--ink-soft);font-size:14.5px;line-height:1.7;">${j.name} is a ${j.type.toLowerCase()} serving ${j.district} district, operating under the administrative control of the Inspectorate of Prisons, Government of Jharkhand. The facility maintains dedicated wards for vocational training, medical care and legal aid consultation, with content on this page updated directly by facility staff and reviewed by Prison Headquarters.</p>
+        <div class="hr" style="margin:28px 0;"></div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>OFFICIALS</div>
+        <h3 style="margin-bottom:14px;">Facility leadership</h3>
+        <div class="card officials-list" style="padding:6px 22px;">
+          ${officials.map(o=>`<div class="row"><div><div class="name">${o.n}</div><div class="desig">${o.d}</div></div></div>`).join("")}
+        </div>
+        <div class="hr" style="margin:28px 0;"></div>
+        <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>FACILITY GALLERY</div>
+        <h3 style="margin-bottom:14px;">Recent photographs</h3>
+        <div class="gallery-grid">
+          ${GALLERY.slice(0,4).map(g=>`<div class="gphoto" style="background:linear-gradient(135deg,${g.c1},${g.c2});">${ICN.image}<div class="lbl">${g.l}</div></div>`).join("")}
+        </div>
+      </div>
+      <div>
+        <div class="card side-card" style="margin-bottom:16px;">
+          <h4>Contact</h4>
+          <div class="line">${ICN.phone}<span>${j.phone}</span></div>
+          <div class="line">${ICN.mail}<span>${j.email}</span></div>
+          <div class="line">${ICN.pin}<span>${j.district} District, Jharkhand</span></div>
+          <button class="btn btn-line btn-sm" style="width:100%;justify-content:center;margin-top:14px;" onclick="window.print()">Printer-friendly view</button>
+        </div>
+        <div class="card side-card">
+          <h4>Linked Documents</h4>
+          <div class="line">${ICN.doc}<span>Visitor Conduct Guidelines (PDF)</span></div>
+          <div class="line">${ICN.doc}<span>Latest Inspection Report (PDF)</span></div>
+          <div class="line">${ICN.doc}<span>Tender Notices — eTenders Jharkhand ↗</span></div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function screenActsRules(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Acts, Rules &amp; Circulars</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Statutory references, manuals and standard operating procedures governing prison administration in Jharkhand.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="card" style="overflow:hidden;">
+        <table class="table">
+          <thead><tr><th>Document</th><th>Category</th><th>Source / Date</th><th>Size</th><th></th></tr></thead>
+          <tbody>
+            ${ACTS.map(a=>`<tr>
+              <td><div class="doc-row"><div class="doc-ico">${ICN.doc}</div><span style="font-weight:600;">${a.title}</span></div></td>
+              <td><span class="tag tag-grey">${a.type}</span></td>
+              <td style="color:var(--ink-soft);">${a.date}</td>
+              <td style="color:var(--ink-soft);font-family:var(--font-mono);">${a.size}</td>
+              <td><button class="btn btn-ghost btn-sm">${ICN.download} Download</button></td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+function screenTenders(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Tenders &amp; Notices</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">All procurement tenders are published through the State eTenders portal and mirrored here for reference.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="card" style="padding:18px 22px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--forest-mist);border-color:var(--forest);">
+        <div style="display:flex;gap:14px;align-items:center;">
+          ${ICN.scale}
+          <div><div style="font-weight:700;font-size:14.5px;">All formal bid submissions are processed via eTendersJharkhand.gov.in</div><div style="font-size:12.5px;color:var(--ink-soft);">This page lists notices for reference only.</div></div>
+        </div>
+        <button class="btn btn-primary btn-sm">Visit eTenders Portal ${ICN.chev}</button>
+      </div>
+      <div class="card" style="overflow:hidden;">
+        <table class="table">
+          <thead><tr><th>Reference No.</th><th>Title</th><th>Closing</th><th>Status</th></tr></thead>
+          <tbody>
+            ${TENDERS.map(tnd=>`<tr>
+              <td style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);">${tnd.ref}</td>
+              <td style="font-weight:600;">${tnd.title}</td>
+              <td>${tnd.closing}</td>
+              <td><span class="tag ${tnd.status==='Open'?'tag-green':'tag-grey'}">${tnd.status}</span></td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+function screenGallery(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Photo &amp; Video Gallery</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Moments from reform initiatives, inspections and observances across all facilities — secure uploads reviewed before publication.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="gallery-grid">
+        ${GALLERY.map(g=>`<div class="gphoto" style="background:linear-gradient(135deg,${g.c1},${g.c2});">${ICN.image}<div class="lbl">${g.l}</div></div>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+function screenCharter(){
+  const items=[
+    {h:"Mulakat (visitation) scheduling", v:"Acknowledged within 24 hours; appointment confirmed within 3 working days."},
+    {h:"Legal aid request", v:"Forwarded to District Legal Services Authority within 48 hours."},
+    {h:"Parole / furlough application processing", v:"Initial review and response within 15 working days."},
+    {h:"RTI applications", v:"Statutory response within 30 days as per the RTI Act, 2005."},
+    {h:"Grievance acknowledgment", v:"Receipt confirmed within 24 hours; resolution target 7 working days."},
+    {h:"Visitor identity verification", v:"Conducted at facility gate within 10 minutes of arrival."}
+  ];
+  const downloads=["Mulakat (Visitation) Application Form","Parole Application Form","Legal Aid Request Form","Public Grievance Form"];
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Citizen's Charter</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Our published service standards, and the forms you need to access them.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>SERVICE STANDARDS</div>
+      <h2 style="margin-bottom:24px;">What you can expect from us</h2>
+      <div class="charter-grid" style="margin-bottom:50px;">
+        ${items.map(it=>`<div class="charter-item"><div class="top"><h4>${it.h}</h4><span class="tag tag-green">${ICN.clock} SLA</span></div><p style="font-size:13px;color:var(--ink-soft);">${it.v}</p></div>`).join("")}
+      </div>
+      <div class="eyebrow"><span class="bars">${[1,2,3,4,5].map(()=>'<span></span>').join('')}</span>DOWNLOAD SECTION</div>
+      <h2 style="margin-bottom:24px;">Approved forms</h2>
+      <div class="grid" style="grid-template-columns:repeat(4,1fr);">
+        ${downloads.map(d=>`<div class="card" style="padding:18px;"><div class="doc-ico" style="margin-bottom:12px;">${ICN.doc}</div><h4 style="font-size:13.5px;margin-bottom:10px;">${d}</h4><button class="btn btn-ghost btn-sm" style="padding-left:0;">${ICN.download} PDF</button></div>`).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+function screenContact(){
+  return `
+  <section class="detail-hero">
+    <div class="wrap">
+      <h1>Contact &amp; Grievance</h1>
+      <p style="color:#B9C4BD;max-width:600px;margin-top:12px;">Reach Prison Headquarters directly, or file a grievance regarding any facility or service.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap detail-grid">
+      <div>
+        <div class="card" style="padding:26px;">
+          <h3 style="margin-bottom:18px;font-size:18px;">Submit a grievance</h3>
+          <form onsubmit="submitGrievanceForm(event)">
+            <div class="form-grid" style="margin-bottom:14px;">
+              <div class="field"><label>Full name</label><input required placeholder="Your name"></div>
+              <div class="field"><label>Mobile number</label><input required placeholder="10-digit number"></div>
+            </div>
+            <div class="form-grid" style="margin-bottom:14px;">
+              <div class="field"><label>Concerned facility</label>
+                <select>${JAILS.map(j=>`<option>${j.name}</option>`).join("")}</select>
+              </div>
+              <div class="field"><label>Category</label>
+                <select><option>Visitation Issue</option><option>Legal Aid Request</option><option>Parole Status Query</option><option>Corruption Complaint</option><option>Website Issue</option></select>
+              </div>
+            </div>
+            <div class="form-grid full" style="margin-bottom:14px;">
+              <div class="field"><label>Description</label><textarea required placeholder="Describe your concern in detail…"></textarea></div>
+            </div>
+            <div class="form-grid full" style="margin-bottom:18px;">
+              <div class="field"><label>Verification</label>
+                <div class="captcha-row">
+                  <div class="captcha-box">7 + 5 = ?</div>
+                  <input style="max-width:90px;" placeholder="Answer" required>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit Grievance</button>
+          </form>
+        </div>
+      </div>
+      <div>
+        <div class="card side-card" style="margin-bottom:16px;">
+          <h4>Prison Headquarters</h4>
+          <div class="line">${ICN.pin}<span>Engineers Hostel #1, Near Golchakkar, Dhurwa, Ranchi – 834004</span></div>
+          <div class="line">${ICN.phone}<span>0651-2401044 / 2401067</span></div>
+          <div class="line">${ICN.mail}<span>igprisons@jharkhand.gov.in</span></div>
+        </div>
+        <div class="map-block">
+          <div class="map-pin">${ICN.pinL}</div>
+          <div class="map-tag">📍 Dhurwa, Ranchi — Google Maps integration</div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function submitGrievanceForm(e){ e.preventDefault(); toast("Grievance submitted — reference #GR-2026-0142"); nav("home"); }
+
+/* =========================================================
+   LOGIN
+========================================================= */
+function screenLogin(){
+  const isAdmin = S.loginTab==="phq_admin";
+  return `
+  <div class="login-shell">
+    <div class="login-side">
+      <div class="top">
+        <div style="display:flex;align-items:center;gap:12px;">${emblemLight(38)}<div><div style="color:#fff;font-weight:700;font-size:14px;">Prisons CMS Portal</div><div style="color:#8C9180;font-size:11px;">Government of Jharkhand</div></div></div>
+        <h2>One portal for headquarters and every jail's content team.</h2>
+        <p>Manage facility profiles, circulars, galleries and grievances — with central approval before anything goes live.</p>
+      </div>
+      <div>
+        <div class="feat">${ICN.shield}<p>Role-based access control with full audit logging</p></div>
+        <div class="feat">${ICN.check}<p>Change Control workflow — every edit reviewed before publishing</p></div>
+        <div class="feat">${ICN.flag}<p>GIGW, WCAG 2.0 and OWASP-aligned by design</p></div>
+      </div>
+    </div>
+    <div class="login-main">
+      <div class="login-box">
+        <a class="back" href="#" style="color:var(--ink-soft);display:inline-flex;align-items:center;gap:6px;font-size:13px;" onclick="nav('home');return false;">${ICN.arrowleft} Back to public site</a>
+        <h2 style="font-size:24px;margin-top:18px;">Welcome back</h2>
+        <p style="color:var(--ink-soft);font-size:14px;margin-top:6px;">Sign in to manage portal content.</p>
+        <div class="role-tabs">
+          <button class="role-tab ${isAdmin?'active':''}" onclick="S.loginTab='phq_admin';render();">
+            <div class="l">Full access</div><div class="n">PHQ Admin</div>
+          </button>
+          <button class="role-tab ${!isAdmin?'active':''}" onclick="S.loginTab='jail_officer';render();">
+            <div class="l">Facility access</div><div class="n">Jail Officer</div>
+          </button>
+        </div>
+        <div class="field" style="margin-bottom:14px;"><label>Employee ID / Email</label><input value="${isAdmin?'admin@phq.prisons.jharkhand.gov.in':'editor.ranchi@prisons.jharkhand.gov.in'}"></div>
+        <div class="field" style="margin-bottom:18px;"><label>Password</label><input type="password" value="••••••••"></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="login('${isAdmin?'phq_admin':'jail_officer'}')">Sign In to Portal</button>
+        <div class="demo-note">${ICN.alert} This is a prototype — click "Sign In" to preview the ${isAdmin?'PHQ Admin':'Jail Officer'} workspace with demo data.</div>
+      </div>
+    </div>
+  </div>`;
+}
+function login(role){ S.role=role; S.mode="portal"; S.screen = role==="phq_admin" ? "admin-dashboard" : "jail-dashboard"; render(); toast("Signed in successfully"); }
+function logout(){ S.mode="public"; S.screen="home"; S.role=null; render(); }
+
+/* =========================================================
+   PORTAL SHELL
+========================================================= */
+function sidebarLinks(){
+  if(S.role==="phq_admin"){
+    return [
+      ["section","OVERVIEW"],
+      ["admin-dashboard","grid","Dashboard"],
+      ["section","CONTENT"],
+      ["admin-content","doc","Content Management",CONTENT_QUEUE.filter(c=>c.status==="Pending").length],
+      ["jails","building","Jails Directory"],
+      ["section","OPERATIONS"],
+      ["admin-grievances","alert","Grievances",GRIEVANCES.filter(g=>g.status==="Open"||g.status==="Escalated").length],
+      ["admin-users","users","User &amp; Access"],
+      ["admin-audit","log","Audit Log"],
+      ["section","SYSTEM"],
+      ["settings","settings","Settings"]
+    ];
+  }
+  return [
+    ["section","OVERVIEW"],
+    ["jail-dashboard","grid","Dashboard"],
+    ["section","MANAGE CONTENT"],
+    ["jail-editor","doc","Page Editor"],
+    ["section","SUPPORT"],
+    ["jail-grievance","alert","Grievances",GRIEVANCES.filter(g=>g.jail.includes("Ranchi")).length]
+  ];
+}
+function portalShell(content, title, sub){
+  const links=sidebarLinks();
+  const userLabel = S.role==="phq_admin" ? "PHQ Administrator" : "Jail Editor — Ranchi";
+  const userInit = S.role==="phq_admin" ? "PA" : "JR";
+  return `
+  <div class="portal">
+    <aside class="sidebar">
+      <div class="sb-brand">
+        <div class="mark">${emblemLight(34)}</div>
+        <div><b>Prisons CMS</b><small>${S.role==="phq_admin"?"PHQ Administrator":"Jail Officer Console"}</small></div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding-bottom:10px;">
+        ${links.map(l=>{
+          if(l[0]==="section") return `<div class="sb-section">${l[1]}</div>`;
+          const [id,icon,label,badge]=l;
+          return `<a class="sb-link ${S.screen===id?'active':''}" href="#" onclick="nav('${id}');return false;">${ICN[icon]} <span>${label}</span> ${badge?`<span class="sb-badge">${badge}</span>`:''}</a>`;
+        }).join("")}
+      </div>
+      <div class="sb-foot">
+        <div class="avatar">${userInit}</div>
+        <div class="who"><b>${userLabel}</b><span>${S.role==="phq_admin"?"Headquarters":"Birsa Munda Central Jail"}</span></div>
+        <button onclick="logout()" title="Sign out">${ICN.logout}</button>
+      </div>
+    </aside>
+    <div class="portal-main">
+      <div class="topbar">
+        <div><h2>${title}</h2>${sub?`<div class="topbar-sub">${sub}</div>`:""}</div>
+        <div class="topbar-right">
+          <button class="tb-icon-btn">${ICN.bell}<span class="dot"></span></button>
+          <button class="btn btn-line btn-sm" onclick="nav('public-preview')">View Public Site</button>
+        </div>
+      </div>
+      <div class="portal-content">${content}</div>
+    </div>
+  </div>`;
+}
+
+/* ===== PHQ ADMIN ===== */
+function screenAdminDashboard(){
+  const pending=CONTENT_QUEUE.filter(c=>c.status==="Pending").length;
+  const openGriev=GRIEVANCES.filter(g=>g.status==="Open"||g.status==="Escalated").length;
+  const kpis=[
+    {ic:"building", bg:"var(--forest-mist)", col:"var(--forest)", num:"13", lab:"Jails on the portal", delta:"All active", dcol:"var(--forest)"},
+    {ic:"doc", bg:"var(--rust-mist)", col:"var(--rust-deep)", num:pending, lab:"Content awaiting approval", delta:"Review queue", dcol:"var(--rust-deep)"},
+    {ic:"alert", bg:"#F6E3DF", col:"var(--red)", num:openGriev, lab:"Open grievances", delta:"2 escalated", dcol:"var(--red)"},
+    {ic:"users", bg:"#FBF0DD", col:"var(--amber)", num:USERS.length, lab:"Active CMS accounts", delta:"+1 this week", dcol:"var(--amber)"}
+  ];
+  return portalShell(`
+    <div class="kpi-grid">
+      ${kpis.map(k=>`<div class="card kpi"><div class="top"><div class="ic" style="background:${k.bg};color:${k.col};">${ICN[k.ic]}</div></div><div class="num">${k.num}</div><div class="lab">${k.lab}</div><div class="delta" style="color:${k.dcol};">${k.delta}</div></div>`).join("")}
+    </div>
+    <div class="panel-grid">
+      <div class="card panel">
+        <div class="panel-head"><h3>Pending content approvals</h3><button class="btn btn-ghost btn-sm" onclick="nav('admin-content')">View all ${ICN.chev}</button></div>
+        ${CONTENT_QUEUE.filter(c=>c.status==="Pending").slice(0,4).map(c=>`
+          <div class="alert-row">
+            <div class="alert-dot" style="background:var(--amber);"></div>
+            <div style="flex:1;">
+              <p><b>${c.title}</b></p>
+              <div class="t">${c.jail} · ${c.type} · submitted ${c.date}</div>
+            </div>
+            <button class="btn btn-sm" style="background:var(--forest-mist);color:var(--forest);" onclick="approveContent('${c.id}')">${ICN.check}</button>
+            <button class="btn btn-sm" style="background:#F6E3DF;color:var(--red);" onclick="rejectContent('${c.id}')">${ICN.x}</button>
+          </div>`).join("")}
+      </div>
+      <div class="card panel">
+        <div class="panel-head"><h3>Occupancy snapshot</h3></div>
+        <div style="padding:18px 20px;">
+          ${JAILS.slice(0,6).map(j=>{
+            const pct=Math.min(100, Math.round(j.occ/j.capacity*100));
+            return `<div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;font-size:12.5px;"><span>${j.name}</span><span style="font-family:var(--font-mono);color:${pct>100?'var(--red)':'var(--ink-soft)'};">${pct}%</span></div><div class="bw-progress"><div style="width:${Math.min(pct,100)}%;background:${pct>100?'var(--red)':'var(--forest)'};"></div></div></div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>
+    <div class="section-tight" style="padding-bottom:0;">
+      <div class="panel-head" style="padding:0 0 16px;border:0;"><h3 style="font-size:15px;">Quick actions</h3></div>
+      <div class="action-grid">
+        <div class="action-card" style="cursor:pointer;" onclick="nav('admin-users')"><div class="ic">${ICN.plus}</div><div><h5>Onboard a jail editor</h5><p>Create CMS access for a facility</p></div></div>
+        <div class="action-card" style="cursor:pointer;" onclick="nav('admin-content')"><div class="ic">${ICN.doc}</div><div><h5>Review content queue</h5><p>${pending} items pending</p></div></div>
+        <div class="action-card" style="cursor:pointer;" onclick="nav('admin-grievances')"><div class="ic">${ICN.alert}</div><div><h5>Resolve grievances</h5><p>${openGriev} open cases</p></div></div>
+        <div class="action-card" style="cursor:pointer;" onclick="nav('admin-audit')"><div class="ic">${ICN.log}</div><div><h5>View audit trail</h5><p>Full system activity log</p></div></div>
+      </div>
+    </div>
+  `, "Dashboard", "PHQ Admin · Overview");
+}
+
+function screenAdminContent(){
+  const tabs=["All","Pending","Approved","Rejected"];
+  let rows=CONTENT_QUEUE.filter(c=> S.contentTab==="All" || c.status===S.contentTab);
+  return portalShell(`
+    <div class="tabbar">${tabs.map(tb=>`<button class="${S.contentTab===tb?'active':''}" onclick="S.contentTab='${tb}';render();">${tb}</button>`).join("")}</div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Item</th><th>Jail</th><th>Type</th><th>Submitted</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          ${rows.map(c=>`<tr>
+            <td><b>${c.title}</b><div style="font-size:11.5px;color:var(--ink-soft);margin-top:2px;">by ${c.by}</div></td>
+            <td>${c.jail}</td>
+            <td><span class="tag tag-grey">${c.type}</span></td>
+            <td style="color:var(--ink-soft);">${c.date}</td>
+            <td><span class="tag ${c.status==='Pending'?'tag-amber':c.status==='Approved'?'tag-green':'tag-red'}">${c.status}</span></td>
+            <td>
+              ${c.status==='Pending' ? `<button class="btn btn-sm" style="background:var(--forest-mist);color:var(--forest);margin-right:6px;" onclick="approveContent('${c.id}')">Approve</button><button class="btn btn-sm" style="background:#F6E3DF;color:var(--red);" onclick="rejectContent('${c.id}')">Reject</button>` : `<button class="btn btn-ghost btn-sm">View</button>`}
+            </td>
+          </tr>`).join("")}
+        </tbody>
+      </table>
+      ${rows.length===0 ? `<div class="empty-state">${ICN.doc}<p>No items in this view.</p></div>` : ""}
+    </div>
+  `, "Content Management", "Review jail-submitted updates before they publish");
+}
+function approveContent(id){ const c=CONTENT_QUEUE.find(x=>x.id===id); if(c){c.status="Approved";} render(); toast("Content approved and published"); }
+function rejectContent(id){ const c=CONTENT_QUEUE.find(x=>x.id===id); if(c){c.status="Rejected";} render(); toast("Content rejected — editor notified"); }
+
+function screenAdminUsers(){
+  return portalShell(`
+    <div class="toolbar"><p style="font-size:13.5px;color:var(--ink-soft);">${USERS.length} accounts across headquarters and jail facilities</p><button class="btn btn-primary btn-sm">${ICN.plus} New User</button></div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Name</th><th>Role</th><th>Facility</th><th>Status</th><th>Last login</th><th></th></tr></thead>
+        <tbody>
+          ${USERS.map(u=>`<tr>
+            <td><b>${u.name}</b></td>
+            <td><span class="tag ${u.role==='PHQ Admin'?'tag-green':'tag-grey'}">${u.role}</span></td>
+            <td>${u.jail}</td>
+            <td><span class="tag ${u.status==='Active'?'tag-green':u.status==='Inactive'?'tag-red':'tag-amber'}">${u.status}</span></td>
+            <td style="color:var(--ink-soft);">${u.login}</td>
+            <td><button class="btn btn-ghost btn-sm">Manage</button></td>
+          </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  `, "User & Access Management", "Onboard, suspend or manage credentials for jail editors");
+}
+
+function screenAdminGrievances(){
+  return portalShell(`
+    <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);">
+      ${[["Open","var(--red)"],["In Progress","var(--amber)"],["Escalated","var(--rust-deep)"],["Resolved","var(--forest)"]].map(([st,col])=>{
+        const n=GRIEVANCES.filter(g=>g.status===st).length;
+        return `<div class="card kpi" style="padding:16px 20px;"><div class="num" style="font-size:22px;color:${col};">${n}</div><div class="lab">${st}</div></div>`;
+      }).join("")}
+    </div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Complainant</th><th>Facility</th><th>Category</th><th>Priority</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          ${GRIEVANCES.map(g=>`<tr>
+            <td><b>${g.name}</b><div style="font-size:11.5px;color:var(--ink-soft);">${g.date}</div></td>
+            <td>${g.jail}</td>
+            <td>${g.cat}</td>
+            <td><span class="tag ${g.priority==='High'?'tag-red':g.priority==='Medium'?'tag-amber':'tag-grey'}">${g.priority}</span></td>
+            <td><span class="tag ${g.status==='Resolved'?'tag-green':g.status==='Escalated'?'tag-red':'tag-amber'}">${g.status}</span></td>
+            <td><button class="btn btn-ghost btn-sm" onclick="resolveGrievance('${g.id}')">${g.status==='Resolved'?'View':'Resolve'}</button></td>
+          </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  `, "Grievance Management", "Track and resolve citizen complaints across all facilities");
+}
+function resolveGrievance(id){ const g=GRIEVANCES.find(x=>x.id===id); if(g && g.status!=="Resolved"){g.status="Resolved";} render(); toast("Grievance marked resolved"); }
+
+function screenAdminAudit(){
+  return portalShell(`
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Timestamp</th><th>User</th><th>Action</th><th>Module</th><th>IP Address</th></tr></thead>
+        <tbody>
+          ${AUDIT.map(a=>`<tr>
+            <td style="font-family:var(--font-mono);font-size:12px;">${a.time}</td>
+            <td style="font-size:12.5px;">${a.user}</td>
+            <td>${a.action}</td>
+            <td style="color:var(--ink-soft);">${a.module}</td>
+            <td style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);">${a.ip}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table>
+    </div>
+  `, "Audit Log", "Complete, immutable record of all portal activity");
+}
+
+function screenSettings(){
+  return portalShell(`
+    <div class="grid" style="grid-template-columns:1fr 1fr;">
+      <div class="card side-card"><h4>Security &amp; Compliance</h4>
+        <div class="line">${ICN.shield}<span>GIGW 3.0 compliance — Verified, last audit 02 Jun 2026</span></div>
+        <div class="line">${ICN.shield}<span>OWASP Top-10 hardening — Active</span></div>
+        <div class="line">${ICN.shield}<span>SSL/TLS certificate — Valid until Aug 2027</span></div>
+      </div>
+      <div class="card side-card"><h4>Backup &amp; Continuity</h4>
+        <div class="line">${ICN.clock}<span>Last automated backup — Today, 03:00 AM</span></div>
+        <div class="line">${ICN.clock}<span>Disaster recovery replica — In sync</span></div>
+      </div>
+    </div>
+  `, "Settings", "System configuration & compliance status");
+}
+
+/* ===== JAIL OFFICER ===== */
+function screenJailDashboard(){
+  const myJail="Birsa Munda Central Jail";
+  const myQueue=CONTENT_QUEUE.filter(c=>c.jail===myJail);
+  return portalShell(`
+    <div class="kpi-grid">
+      <div class="card kpi"><div class="top"><div class="ic" style="background:var(--forest-mist);color:var(--forest);">${ICN.doc}</div></div><div class="num">${myQueue.filter(c=>c.status==='Approved').length}</div><div class="lab">Published items</div></div>
+      <div class="card kpi"><div class="top"><div class="ic" style="background:#FBF0DD;color:var(--amber);">${ICN.clock}</div></div><div class="num">${myQueue.filter(c=>c.status==='Pending').length}</div><div class="lab">Awaiting PHQ approval</div></div>
+      <div class="card kpi"><div class="top"><div class="ic" style="background:var(--forest-mist);color:var(--forest);">${ICN.image}</div></div><div class="num">24</div><div class="lab">Gallery photos live</div></div>
+      <div class="card kpi"><div class="top"><div class="ic" style="background:#F6E3DF;color:var(--red);">${ICN.alert}</div></div><div class="num">${GRIEVANCES.filter(g=>g.jail===myJail).length}</div><div class="lab">Open grievances</div></div>
+    </div>
+    <div class="action-grid" style="margin-bottom:24px;">
+      <div class="action-card" style="cursor:pointer;" onclick="S.jailEditorTab='circulars';nav('jail-editor');"><div class="ic">${ICN.plus}</div><div><h5>Add a circular</h5><p>Submit for PHQ approval</p></div></div>
+      <div class="action-card" style="cursor:pointer;" onclick="S.jailEditorTab='gallery';nav('jail-editor');"><div class="ic">${ICN.upload}</div><div><h5>Upload gallery photos</h5><p>Document an event or activity</p></div></div>
+      <div class="action-card" style="cursor:pointer;" onclick="S.jailEditorTab='officials';nav('jail-editor');"><div class="ic">${ICN.users}</div><div><h5>Update officials list</h5><p>Keep contact details current</p></div></div>
+      <div class="action-card" style="cursor:pointer;" onclick="nav('jail-grievance');"><div class="ic">${ICN.alert}</div><div><h5>Respond to grievances</h5><p>Reply to citizen concerns</p></div></div>
+    </div>
+    <div class="card panel">
+      <div class="panel-head"><h3>My submissions</h3></div>
+      ${myQueue.map(c=>`<div class="alert-row">
+        <div class="alert-dot" style="background:${c.status==='Approved'?'var(--forest)':c.status==='Rejected'?'var(--red)':'var(--amber)'};"></div>
+        <div style="flex:1;"><p><b>${c.title}</b></p><div class="t">${c.type} · submitted ${c.date}</div></div>
+        <span class="tag ${c.status==='Pending'?'tag-amber':c.status==='Approved'?'tag-green':'tag-red'}">${c.status}</span>
+      </div>`).join("")}
+    </div>
+  `, "Dashboard", "Birsa Munda Central Jail · Jail Officer Console");
+}
+
+function screenJailEditor(){
+  const tabs=[["officials","Officials"],["gallery","Gallery"],["circulars","Circulars"],["events","Events"]];
+  return portalShell(`
+    <div class="tabbar">${tabs.map(([id,lab])=>`<button class="${S.jailEditorTab===id?'active':''}" onclick="S.jailEditorTab='${id}';render();">${lab}</button>`).join("")}</div>
+    <div class="card" style="padding:26px;">
+      ${jailEditorBody()}
+    </div>
+  `, "Page Editor", "Birsa Munda Central Jail — changes route through Change Control before going live");
+}
+function jailEditorBody(){
+  if(S.jailEditorTab==="officials"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">Facility officials</h3>
+    <div class="form-grid" style="margin-bottom:16px;">
+      <div class="field"><label>Name</label><input value="Shri R. K. Mahto"></div>
+      <div class="field"><label>Designation</label><input value="Superintendent"></div>
+    </div>
+    <div class="form-grid" style="margin-bottom:20px;">
+      <div class="field"><label>Phone</label><input value="0651-2233012"></div>
+      <div class="field"><label>Email</label><input value="cj.ranchi@prisons.jharkhand.gov.in"></div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  if(S.jailEditorTab==="gallery"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">Upload photographs</h3>
+    <div style="border:2px dashed var(--line);border-radius:6px;padding:40px;text-align:center;color:var(--ink-soft);margin-bottom:18px;">
+      ${ICN.upload}<p style="margin-top:10px;font-size:13.5px;">Drag photos here, or click to browse · JPG/PNG, max 5MB each</p>
+    </div>
+    <div class="field" style="margin-bottom:18px;"><label>Caption</label><input placeholder="e.g. Vocational training workshop, June 2026"></div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  if(S.jailEditorTab==="circulars"){
+    return `<h3 style="font-size:16px;margin-bottom:18px;">New circular</h3>
+    <div class="field" style="margin-bottom:16px;"><label>Title</label><input placeholder="e.g. Revised mulakat timing — June 2026"></div>
+    <div class="field" style="margin-bottom:20px;"><label>Details</label><textarea placeholder="Circular content…"></textarea></div>
+    <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+  }
+  return `<h3 style="font-size:16px;margin-bottom:18px;">New event report</h3>
+  <div class="form-grid" style="margin-bottom:16px;">
+    <div class="field"><label>Event title</label><input placeholder="e.g. Yoga Day observance"></div>
+    <div class="field"><label>Date</label><input type="date"></div>
+  </div>
+  <div class="field" style="margin-bottom:20px;"><label>Summary</label><textarea placeholder="What happened…"></textarea></div>
+  <button class="btn btn-primary btn-sm" onclick="submitForApproval()">Submit for Approval</button>`;
+}
+function submitForApproval(){ toast("Submitted to PHQ for approval"); nav("jail-dashboard"); }
+
+function screenJailGrievance(){
+  const mine=GRIEVANCES.filter(g=>g.jail.includes("Ranchi"));
+  return portalShell(`
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Complainant</th><th>Category</th><th>Date</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          ${mine.length ? mine.map(g=>`<tr><td><b>${g.name}</b></td><td>${g.cat}</td><td>${g.date}</td><td><span class="tag ${g.status==='Resolved'?'tag-green':'tag-amber'}">${g.status}</span></td><td><button class="btn btn-ghost btn-sm">Reply</button></td></tr>`).join("") : `<tr><td colspan="5"><div class="empty-state">${ICN.check}<p>No open grievances for your facility.</p></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  `, "Grievances", "Birsa Munda Central Jail");
+}
+
+/* =========================================================
+   GLOBAL HELPERS
+========================================================= */
+function toggleLang(){ S.lang = S.lang==="en" ? "hi" : "en"; render(); }
+function changeFontSize(d){
+  S.fontStep = d===0 ? 1 : Math.max(0, Math.min(2, S.fontStep+d));
+  const sizes=[14,16,18];
+  document.documentElement.style.fontSize = sizes[S.fontStep]+"px";
+}
+
+/* =========================================================
+   ROUTER / RENDER
+========================================================= */
+function render(){
+  const app=document.getElementById("app");
+  if(S.screen==="login"){ app.innerHTML = screenLogin(); return; }
+  if(S.screen==="public-preview"){ S.mode="public"; S.screen="home"; }
+
+  if(S.mode==="public" && S.screen!=="login" && !["admin-dashboard","admin-content","admin-users","admin-grievances","admin-audit","settings","jail-dashboard","jail-editor","jail-grievance"].includes(S.screen)){
+    let content="";
+    switch(S.screen){
+      case "home": content=screenHome(); break;
+      case "about": content=screenAbout(); break;
+      case "jails": content=screenJails(); break;
+      case "jail-detail": content=screenJailDetail(); break;
+      case "acts": content=screenActsRules(); break;
+      case "tenders": content=screenTenders(); break;
+      case "gallery": content=screenGallery(); break;
+      case "charter": content=screenCharter(); break;
+      case "contact": content=screenContact(); break;
+      default: content=screenHome();
+    }
+    app.innerHTML = renderPublic(content);
+    return;
+  }
+
+  // portal screens
+  switch(S.screen){
+    case "admin-dashboard": app.innerHTML=screenAdminDashboard(); break;
+    case "admin-content": app.innerHTML=screenAdminContent(); break;
+    case "admin-users": app.innerHTML=screenAdminUsers(); break;
+    case "admin-grievances": app.innerHTML=screenAdminGrievances(); break;
+    case "admin-audit": app.innerHTML=screenAdminAudit(); break;
+    case "settings": app.innerHTML=screenSettings(); break;
+    case "jail-dashboard": app.innerHTML=screenJailDashboard(); break;
+    case "jail-editor": app.innerHTML=screenJailEditor(); break;
+    case "jail-grievance": app.innerHTML=screenJailGrievance(); break;
+    case "jails": app.innerHTML = S.mode==="portal" ? portalShell(screenJailsInline(), "Jails Directory", "Read-only reference for PHQ Admin") : renderPublic(screenJails()); break;
+    default: app.innerHTML=screenAdminDashboard();
+  }
+}
+function screenJailsInline(){
+  return `<div class="jail-grid">${JAILS.map(j=>`<div class="jail-card" onclick="alert('Profile editing opens in the jail officer console.')"><div class="swatch"><div class="ico">${ICN.building}</div></div><div class="body"><div class="type">${j.type} · ${j.district}</div><h4>${j.name}</h4><div class="meta"><span>Occ. ${j.occ}/${j.capacity}</span><span>${j.updated}</span></div></div></div>`).join("")}</div>`;
+}
+
+render();
+</script>
+</body>
+</html>
